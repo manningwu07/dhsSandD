@@ -1,4 +1,7 @@
 import Head from "next/head";
+import Navbar from "~/components/navbar";
+import LandingPage from "./LandingPage";
+
 export default function Home() {
   return (
     <>
@@ -10,7 +13,7 @@ export default function Home() {
         />
         <link rel="icon" href="/logo.jpg" />
       </Head>
-      {/* <LandingPage /> */}
+      <LandingPage />
     </>
   );
 }
