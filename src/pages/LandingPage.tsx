@@ -11,7 +11,7 @@ export default function LandingPage() {
         alt="School building at sunset"
         layout="fill"
         objectFit="cover"
-        className="opacity-50"
+        className="opacity-50 -z-50"
       />
 
       <Navbar />
