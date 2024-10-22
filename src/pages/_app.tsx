@@ -1,6 +1,5 @@
 import { GeistSans } from "geist/font/sans";
 import { type AppType } from "next/app";
-
 import "~/styles/global.css";
 
 const MyApp: AppType = ({ Component, pageProps }) => {

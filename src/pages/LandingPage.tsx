@@ -1,53 +1,52 @@
 import Image from "next/image";
+import LandingCard from "~/components/card/LandingCard";
 import Footer from "~/components/footer";
 import Navbar from "~/components/navbar";
+import Hero from "~/components/sections/Hero";
 
 export default function LandingPage() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-black text-white">
+    <div className="relative min-h-screen overflow-hidden text-white">
       {/* Background Image */}
       <Image
-        src="/placeholder.svg?height=1080&width=1920"
+        src="/Background.webp"
         alt="School building at sunset"
         layout="fill"
         objectFit="cover"
-        className="opacity-50 -z-50"
+        className="h-full w-full inset-0 -z-50 bg-center"
       />
+      <div className="absolute inset-0 -z-40 bg-black opacity-40" />
 
       <Navbar />
 
-      {/* Content Container */}
-      <div className="container relative z-10 mx-auto flex flex-col items-center px-4 py-12">
-        {/* Logo */}
-        <div className="mb-6 h-16 w-16 rounded-full bg-white shadow-lg"></div>
+      <div className="relative z-10 mx-2 flex flex-col items-center px-4 py-12 sm:mx-4 md:mx-6 lg:mx-8 2xl:mx-10">
+        <Hero />
 
-        {/* Title */}
-        <h1
-          className="mb-2 text-center text-4xl font-extrabold md:text-6xl"
-          style={{
-            textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
-          }}
-        >
-          <span className="font-serif text-blue-500">Dublin High School</span>
-        </h1>
+        <div className="my-20 grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6 lg:gap-8 2xl:gap-12">
+          <LandingCard
+            src={"/Landing/test1.png"}
+            alt={"Test alt"}
+            header={"test"}
+            description={"test"}
+            link={"/"}
+          />
+          <LandingCard
+            src={""}
+            alt={""}
+            header={""}
+            description={""}
+            link={""}
+          />
+          <LandingCard
+            src={""}
+            alt={""}
+            header={""}
+            description={""}
+            link={""}
+          />
+        </div>
 
-        <h2
-          className="mb-2 text-center text-5xl font-extrabold md:text-7xl"
-          style={{
-            textShadow: "3px 3px 6px rgba(0, 0, 0, 0.3)",
-          }}
-        >
-          SPEECH <span className="text-pink-400">&</span> DEBATE
-        </h2>
-
-        {/* Email */}
-        <p className="mb-8 text-gray-300">
-          dublinhighspeechanddebate@gmail.com
-        </p>
-
-        {/* Main Content */}
         <div className="mb-12 flex flex-col items-center gap-8 md:flex-row">
-          {/* Image */}
           <div className="md:w-1/2">
             <Image
               src="/placeholder.svg?height=400&width=600"

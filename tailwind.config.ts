@@ -7,6 +7,10 @@ export default {
   ],
 
   theme: {
+    fontFamily: {
+      'cursive': ["Pacifico", 'cursive',],
+    },
+
     extend: {
       screens: {
         // Override the default 'sm' breakpoint to 480px
@@ -15,8 +19,9 @@ export default {
       },
 
       colors: {
-        // Add the 5 colors here
-      },
+        blue: "#003366",
+        red: "#CC0033"
+      }
     },
   },
   plugins: [],
