@@ -54,7 +54,7 @@ export default function Description({
               alt={image.alt}
               layout="fill"
               objectFit="cover"
-              className={`absolute left-0 top-0 transition-transform duration-300 ease-in-out ${
+              className={`absolute left-0 top-0 transition-transform duration-500 ease-in-out ${
                 index === currentIndex
                   ? "translate-x-0"
                   : index === (currentIndex - 1 + images.length) % images.length
@@ -65,7 +65,7 @@ export default function Description({
           ))}
         </div>
         <div
-          className={`text-whitetransition-all absolute bottom-4 left-4 max-w-[calc(100%-2rem)] rounded bg-black bg-opacity-50 p-4 duration-300 ${isHovered ? "opacity-100" : "opacity-0"}`}
+          className={`text-whitetransition-all absolute bottom-4 left-4 max-w-[calc(100%-2rem)] rounded bg-black bg-opacity-50 p-4 duration-500 ${isHovered ? "opacity-100" : "opacity-0"}`}
         >
           <h3 className="truncate text-lg font-bold">
             {images[currentIndex]!.header}
@@ -76,14 +76,14 @@ export default function Description({
         </div>
         <button
           onClick={goToPrevious}
-          className={`duration-300transition-all absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-black bg-opacity-50 p-2 text-white transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"}`}
+          className={`durationabsolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-black bg-opacity-50 p-2 text-white transition-opacity duration-500 ${isHovered ? "opacity-100" : "opacity-0"}`}
           aria-label="Previous image"
         >
           <ChevronLeft className="h-6 w-6" />
         </button>
         <button
           onClick={goToNext}
-          className={`duration-300transition-all absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-black bg-opacity-50 p-2 text-white transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"}`}
+          className={`duration-500transition-all absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-black bg-opacity-50 p-2 text-white transition-opacity duration-500 ${isHovered ? "opacity-100" : "opacity-0"}`}
           aria-label="Next image"
         >
           <ChevronRight className="h-6 w-6" />

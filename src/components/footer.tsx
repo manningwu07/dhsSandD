@@ -5,8 +5,8 @@ export default function Footer() {
   return (
     <footer className="py-8 text-white">
       <div className="container mx-auto px-8">
-        <div className="grid w-full grid-cols-3 items-start">
-          <div className="text-left md:ml-8 lg:ml-12">
+        <div className="flex w-full flex-col items-center justify-between sm:flex-row sm:items-start">
+          <div className="mb-5 text-left sm:mb-0 md:ml-8 lg:ml-12">
             <h3 className="mb-2 font-bold">Students</h3>
             <div className="flex flex-col space-y-1">
               <Link className="hover:underline" href="/sign-ups">
@@ -27,7 +27,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="flex flex-col items-center justify-center">
+          <div className="mb-5 flex flex-col items-center justify-center sm:mb-0">
             <h3 className="mb-2 font-bold">Contact</h3>
             <div className="flex">
               <SocialIcon
@@ -53,8 +53,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="flex justify-end text-left md:mr-8 lg:mr-12">
-            <div>
+          <div className="flex flex-col justify-center items-center sm:text-left md:mr-8 lg:mr-12">
               <h3 className="mb-2 font-bold">Parents</h3>
               <ul className="space-y-1">
                 <li>
@@ -78,7 +77,6 @@ export default function Footer() {
                   </Link>
                 </li>
               </ul>
-            </div>
           </div>
         </div>
 

@@ -46,23 +46,23 @@ export default function LandingPage() {
           <LandingCard
             src={"/Landing/test1.png"}
             alt={"Test alt"}
-            header={"test"}
-            description={"test"}
+            header={"Schedule"}
+            description={"Check out the events we have coming up!"}
             link={"/"}
           />
           <LandingCard
             src={""}
             alt={""}
-            header={""}
-            description={""}
-            link={""}
+            header={"Tournument Sign Ups"}
+            description={"Join our tournaments!"}
+            link={"/"}
           />
           <LandingCard
             src={""}
             alt={""}
-            header={""}
-            description={""}
-            link={""}
+            header={"Parent information"}
+            description={"Information for parents!"}
+            link={"/"}
           />
         </div>
         <div className="container mx-auto p-8">
