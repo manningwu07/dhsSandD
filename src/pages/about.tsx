@@ -49,7 +49,7 @@ export default function AboutPage() {
             WHY SPEECH AND DEBATE?
           </h2>
           <p className="mx-auto mb-8 max-w-3xl text-center text-lg md:mb-12">
-            Speech and Debate aren't restricted to students who aspire to be
+            Speech and Debate aren&apos;t restricted to students who aspire to be
             politicians or lawyers. Many of our members aspire to work in STEM,
             business, and the arts -- yet, we value Speech and Debate for
             developing our lifelong skills in critical thinking, teamwork,

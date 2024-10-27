@@ -24,7 +24,7 @@
     "framer-motion": "^11.9.0",
     "geist": "^1.3.0",
     "lucide-react": "^0.441.0",
-    "next": "^14.2.4",
+    "next": "^15.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tailwind": "^4.0.0",
@@ -34,8 +34,10 @@
     "zod": "^3.23.3"
   },
   "devDependencies": {
+    "@eslint/js": "^9.13.0",
     "@tailwindcss/typography": "^0.5.13",
     "@types/eslint": "^8.56.10",
+    "@types/eslint__js": "^8.42.3",
     "@types/node": "^20.14.10",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
@@ -47,7 +49,8 @@
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.5",
     "tailwindcss": "^3.4.3",
-    "typescript": "^5.5.3"
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.11.0"
   },
   "ct3aMetadata": {
     "initVersion": "7.37.0"
@@ -55,7 +58,6 @@
   "overrides": {
     "vulnerable-package": "version-with-fix",
     "lodash": "^4.17.21",
-    "ajv": "^8.17.1",
     "amqplib": "^0.10.4",
     "body-parser": "^1.20.3",
     "express": "^4.18.2",

@@ -190,7 +190,7 @@ export default function TournamentPage() {
               <li>Maintain a GPA of 2.5 or higher.</li>
               <li>Attend at least 80% of team practices.</li>
               <li>Complete all required forms by the specified deadlines.</li>
-              <li>Adhere to the team's code of conduct.</li>
+              <li>Adhere to the team&apos;s code of conduct.</li>
             </ol>
           </CardContent>
         </Card>

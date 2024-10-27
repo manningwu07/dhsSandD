@@ -10,9 +10,6 @@ export default function Home() {
           name="description"
           content="Brand"
         />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet"></link>
-        <link rel="icon" href="/logo.jpg" />
       </Head>
       <LandingPage />
     </>
