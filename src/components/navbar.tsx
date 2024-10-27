@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function Navbar() {
-
   return (
     <header className="sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between px-4 py-4">
@@ -24,7 +23,7 @@ export default function Navbar() {
             />
           </Link>
         </motion.div>
-        <nav className="hidden items-center space-x-4 md:flex uppercase">
+        <nav className="hidden items-center space-x-4 uppercase md:flex">
           <NavLink
             href="/"
             className="border-white text-white hover:border-gray-400 hover:text-gray-400"
