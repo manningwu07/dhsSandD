@@ -16,7 +16,6 @@ function ActionButton({ link, text }: { link: string; text: string }) {
 export default function AboutPage() {
   return (
     <div className="min-h-screen overflow-hidden bg-[url('/Background.webp')] bg-cover bg-fixed bg-center text-white">
-      <div className="absolute inset-0 -z-40 bg-black opacity-40" />
       <Navbar />
       <Hero />
 
@@ -56,7 +55,7 @@ export default function AboutPage() {
             Speech and Debate is a challenge anyone can embrace!
           </p>
           <div className="grid gap-8 md:grid-cols-2">
-            <div className="rounded-lg bg-gray-800 p-6">
+            <div className="rounded-lg bg-gray-800 bg-opacity-80 p-6">
               <h3 className="mb-4 text-2xl font-bold">SPEECH</h3>
               <p>
                 Speech involves a presentation by one, two, or sometimes a group
@@ -69,7 +68,7 @@ export default function AboutPage() {
                 personalized touch.
               </p>
             </div>
-            <div className="rounded-lg bg-gray-800 p-6">
+            <div className="rounded-lg bg-gray-800 bg-opacity-80 p-6">
               <h3 className="mb-4 text-2xl font-bold">DEBATE</h3>
               <p>
                 Debate involves an individual or a team of debaters working to
@@ -86,7 +85,7 @@ export default function AboutPage() {
             <ActionButton link="/" text="Support us" />
           </div>
 
-          <Card className="bg-primary text-primary-foreground mx-auto max-w-2xl bg-zinc-900 shadow-lg shadow-zinc-800">
+          <Card className="bg-primary text-primary-foreground mx-auto max-w-2xl bg-zinc-900 bg-opacity-80 shadow-lg shadow-zinc-400">
             <CardContent className="p-6">
               <h3 className="mb-4 text-center text-2xl font-bold">
                 Parents, We Need You!

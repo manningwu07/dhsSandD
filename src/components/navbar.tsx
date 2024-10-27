@@ -24,12 +24,12 @@ export default function Navbar() {
             />
           </Link>
         </motion.div>
-        <nav className="hidden items-center space-x-4 md:flex">
+        <nav className="hidden items-center space-x-4 md:flex uppercase">
           <NavLink
             href="/"
             className="border-white text-white hover:border-gray-400 hover:text-gray-400"
           >
-            HOME
+            home
           </NavLink>
           <NavLink
             href="/about"
@@ -44,7 +44,7 @@ export default function Navbar() {
             CALENDAR
           </NavLink>
           <NavLink
-            href="/tornument"
+            href="/tournament"
             className="border-white text-white hover:border-gray-400 hover:text-gray-400"
           >
             TOURNUMENT INFO
@@ -56,10 +56,10 @@ export default function Navbar() {
             2024-2025 BOARD
           </NavLink>
           <NavLink
-            href="/merch"
+            href="/parents"
             className="border-white text-white hover:border-gray-400 hover:text-gray-400"
           >
-            MERCH
+            PARENTS
           </NavLink>
           <NavLink
             href="/join"
