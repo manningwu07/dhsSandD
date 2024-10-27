@@ -3,8 +3,62 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
+import { X, Menu } from "lucide-react";
 
 export default function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  const navItems = [
+    {
+      href: "/",
+      label: "Home",
+    },
+    {
+      href: "/about",
+      label: "About",
+    },
+    {
+      href: "/calendar",
+      label: "Calendar",
+    },
+    {
+      href: "/tournament",
+      label: "Tournament Info",
+    },
+    {
+      href: "/board",
+      label: "2024-2025 Board",
+    },
+    { href: "/parents", label: "Parents" },
+    {
+      href: "/join",
+      label: "Join",
+      className:
+        "border-yellow-400 text-yellow-400 hover:border-yellow-500 hover:text-yellow-500",
+    },
+  ];
+
+  const socialLinks = [
+    {
+      href: "https://instagram.com",
+      icon: "/Icons/Instagram.webp",
+      label: "Instagram",
+    },
+    {
+      href: "https://discord.com",
+      icon: "/Icons/Discord.webp",
+      label: "Discord",
+    },
+    {
+      href: "https://www.tabroom.com/index/index.mhtml",
+      icon: "/Icons/Tabroom.webp",
+      label: "Tabroom",
+    },
+  ];
+
   return (
     <header className="sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between px-4 py-4">
@@ -23,68 +77,67 @@ export default function Navbar() {
             />
           </Link>
         </motion.div>
+        {/* Desktop Navigation */}
         <nav className="hidden items-center space-x-4 uppercase md:flex">
-          <NavLink
-            href="/"
-            className="border-white text-white hover:border-gray-400 hover:text-gray-400"
-          >
-            home
-          </NavLink>
-          <NavLink
-            href="/about"
-            className="border-white text-white hover:border-gray-400 hover:text-gray-400"
-          >
-            ABOUT
-          </NavLink>
-          <NavLink
-            href="/calendar"
-            className="border-white text-white hover:border-gray-400 hover:text-gray-400"
-          >
-            CALENDAR
-          </NavLink>
-          <NavLink
-            href="/tournament"
-            className="border-white text-white hover:border-gray-400 hover:text-gray-400"
-          >
-            TOURNUMENT INFO
-          </NavLink>
-          <NavLink
-            href="/board"
-            className="border-white text-white hover:border-gray-400 hover:text-gray-400"
-          >
-            2024-2025 BOARD
-          </NavLink>
-          <NavLink
-            href="/parents"
-            className="border-white text-white hover:border-gray-400 hover:text-gray-400"
-          >
-            PARENTS
-          </NavLink>
-          <NavLink
-            href="/join"
-            className="border-yellow-400 text-yellow-400 hover:border-yellow-500 hover:text-yellow-500"
-          >
-            JOIN
-          </NavLink>
+          {navItems.map((item) => (
+            <NavLink
+              key={item.href}
+              href={item.href}
+              className={item.className}
+            >
+              {item.label}
+            </NavLink>
+          ))}
           <div className="hidden lg:flex lg:items-center">
-            <SocialIcon
-              href="https://instagram.com"
-              icon="/Icons/Instagram.webp"
-              label="Instagram"
-            />
-            <SocialIcon
-              href="https://discord.com"
-              icon="/Icons/Discord.webp"
-              label="Discord"
-            />
-            <SocialIcon
-              href="https://www.tabroom.com/index/index.mhtml"
-              icon="/Icons/Tabroom.webp"
-              label="Tabroom"
-            />
+            {socialLinks.map((link) => (
+              <SocialIcon
+                key={link.href}
+                href={link.href}
+                icon={link.icon}
+                label={link.label}
+              />
+            ))}
           </div>
         </nav>
+
+        {/* Mobile Menu Button */}
+        <button
+          className="text-white focus:outline-none md:hidden"
+          onClick={toggleMenu}
+          aria-label="Toggle menu"
+        >
+          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
+
+      {/* Mobile Navigation */}
+      {isMenuOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.2 }}
+          className="absolute left-0 right-0 top-full bg-black bg-opacity-90 shadow-lg md:hidden"
+        >
+          <div className="container mx-auto px-6 py-4 flex flex-col">
+            {navItems.map((item) => (
+              <NavLink key={item.href} href={item.href} className={`${item.className} my-1`} onClick={toggleMenu}>
+                {item.label}
+              </NavLink>
+            ))}
+            <div className="mt-4 flex items-center space-x-4">
+              {socialLinks.map((link) => (
+                <SocialIcon
+                  key={link.href}
+                  href={link.href}
+                  icon={link.icon}
+                  label={link.label}
+                />
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      )}
     </header>
   );
 }
@@ -92,16 +145,19 @@ export default function Navbar() {
 function NavLink({
   href,
   children,
-  className,
+  className = "border-white text-white hover:border-gray-400 hover:text-gray-400",
+  onClick,
 }: {
   href: string;
   children: React.ReactNode;
   className?: string;
+  onClick?: () => void;
 }) {
   return (
     <Link
       href={href}
       className={`border-b-2 border-t-2 py-2 transition-colors ${className}`}
+      onClick={onClick}
     >
       {children}
     </Link>

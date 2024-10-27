@@ -1,12 +1,11 @@
 import { motion } from "framer-motion";
-import { ArrowRight, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
 export default function Hero() {
   return (
     <>
       <motion.h1
-        className="text-blue my-3 text-center text-8xl font-extrabold"
+        className="my-3 text-center text-5xl font-extrabold text-blue sm:text-6xl md:text-7xl lg:text-8xl"
         initial={{ x: 150, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.75 }}
@@ -18,7 +17,7 @@ export default function Hero() {
       </motion.h1>
 
       <motion.h2
-        className="mt-2 text-center text-7xl font-semibold"
+        className="mt-2 text-center text-4xl font-semibold sm:text-5xl md:text-6xl lg:text-7xl"
         initial={{ y: 150, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.75, delay: 0.5 }}
@@ -31,35 +30,15 @@ export default function Hero() {
       </motion.h2>
 
       <div className="mt-6 flex items-center justify-center space-x-16">
-        <motion.div
-          animate={{ x: [0, 35, 0] }}
-          transition={{
-            duration: 1,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        >
-          <ArrowRight className="text-6xl" />
-        </motion.div>
-
         <Link
           href="/"
-          className="text-center text-4xl font-semibold hover:underline transition-all duration-200"
+          className="text-center text-2xl font-semibold transition-all duration-200 sm:text-3xl lg:text-4xl"
         >
-          <h1>2024-2025 Membership Form</h1>
+          <h1 className="rounded-2xl bg-zinc-900 bg-opacity-80 p-2">
+            <span className="text-red">Click:</span>{" "}
+            <span className="hover:underline">2024-2025 Membership Form</span>
+          </h1>
         </Link>
-
-        <motion.div
-          animate={{ x: [0, 35, 0] }}
-          transition={{
-            duration: 1,
-            delay: 0.5,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        >
-          <ArrowLeft className="-ml-8 text-6xl" />
-        </motion.div>
       </div>
     </>
   );

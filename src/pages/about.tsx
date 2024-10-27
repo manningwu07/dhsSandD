@@ -7,7 +7,7 @@ import { Card, CardContent } from "~/components/ui/card";
 
 function ActionButton({ link, text }: { link: string; text: string }) {
   return (
-    <div className="my-4 w-fit rounded-full bg-red/80 px-8 py-4 text-center text-lg font-semibold transition-all duration-200 hover:scale-105 hover:underline hover:bg-red sm:text-xl md:text-2xl">
+    <div className="my-4 w-fit rounded-full bg-red/80 px-8 py-4 text-center text-lg font-semibold transition-all duration-200 hover:scale-105 hover:bg-red hover:underline sm:text-xl md:text-2xl">
       <Link href={link}>{text}</Link>
     </div>
   );
@@ -19,23 +19,27 @@ export default function AboutPage() {
       <Navbar />
       <Hero />
 
-      <div className="container mx-auto flex p-8">
-        <div className="relative aspect-[3/2] h-fit w-[240px] sm:w-[320px] md:w-[500px] lg:w-[750px]">
+      <div className="container mx-auto flex flex-col-reverse items-center space-y-6 p-6 md:flex-row md:space-x-8 md:space-y-0">
+        {/* Text Content */}
+        <div className="flex flex-col items-center justify-center p-2 text-center text-white md:p-3 md:text-left lg:p-4 2xl:p-5">
+          <h1 className="mb-4 text-xl font-bold md:text-2xl lg:text-3xl">
+            Who we are
+          </h1>
+          <p className="leading-relaxed md:text-xl">
+            Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap
+            Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap
+            Yap Yap.
+          </p>
+        </div>
+
+        {/* Image */}
+        <div className="relative aspect-[3/2] w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
           <Image
             src="/about.png"
             alt="about"
-            fill={true}
-            objectFit="cover"
-            className="rounded-lg shadow-lg shadow-red"
+            fill
+            className="rounded-lg object-cover shadow-lg"
           />
-        </div>
-        <div className="flex flex-col justify-center p-4 text-white md:p-5 lg:p-6 2xl:p-7">
-          <h1 className="pb-2 text-center text-4xl font-bold">Who we are</h1>
-          <p className="text-left text-lg">
-            Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap
-            Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap
-            Yap Yap
-          </p>
         </div>
       </div>
 
@@ -95,7 +99,10 @@ export default function AboutPage() {
                 judge and help shape the future of our young debaters.
               </p>
               <div className="flex justify-center">
-                <Link href="/" className="bg-red/80 px-3 py-2 w-fit rounded-lg hover:bg-red transition-all duration-200">
+                <Link
+                  href="/"
+                  className="w-fit rounded-lg bg-red/80 px-3 py-2 transition-all duration-200 hover:bg-red"
+                >
                   Register as Judge
                 </Link>
               </div>

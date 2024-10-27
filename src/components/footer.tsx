@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="flex w-full flex-col items-center justify-between sm:flex-row sm:items-start">
           <div className="mb-5 text-left sm:mb-0 md:ml-8 lg:ml-12">
             <h3 className="mb-2 font-bold">Students</h3>
-            <div className="flex flex-col space-y-1">
+            <div className="flex flex-col space-y-1 text-center sm:text-left">
               <Link className="hover:underline" href="/sign-ups">
                 Sign ups
               </Link>
@@ -55,7 +55,7 @@ export default function Footer() {
 
           <div className="flex flex-col justify-center items-center sm:text-left md:mr-8 lg:mr-12">
               <h3 className="mb-2 font-bold">Parents</h3>
-              <ul className="space-y-1">
+              <ul className="space-y-1 text-center sm:text-left">
                 <li>
                   <Link className="hover:underline" href="/register-judge">
                     Register as judge
