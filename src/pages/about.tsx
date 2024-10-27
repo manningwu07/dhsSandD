@@ -13,7 +13,7 @@ function ActionButton({ link, text }: { link: string; text: string }) {
   );
 }
 
-export default function LandingPage() {
+export default function AboutPage() {
   return (
     <div className="min-h-screen overflow-hidden bg-[url('/Background.webp')] bg-cover bg-fixed bg-center text-white">
       <div className="absolute inset-0 -z-40 bg-black opacity-40" />
