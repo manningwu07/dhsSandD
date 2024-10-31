@@ -6,62 +6,24 @@ import Image from "next/image";
 import { useState } from "react";
 import { X, Menu } from "lucide-react";
 import content from "../content.json";
-import { join } from "path";
+import navLinks from "../navLinks.json";
 
 const joinLink = content.components.hero.buttonLink;
+const navItems = navLinks.nav.navItems;
+const socialLinks = navLinks.nav.socialLinks;
+
+// Find the index of the item with label "Join"
+const joinIndex = navItems.findIndex((item) => item.label === "Join");
+
+// Set href to joinLink if "Join" item exists
+if (joinIndex !== -1) {
+  navItems[joinIndex]!.href = joinLink;
+}
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-
-  const navItems = [
-    {
-      href: "/",
-      label: "Home",
-    },
-    {
-      href: "/about",
-      label: "About",
-    },
-    {
-      href: "/club-events",
-      label: "Club Events",
-    },
-    {
-      href: "/tournament",
-      label: "Tournament Info",
-    },
-    {
-      href: "/board",
-      label: "2024-2025 Board",
-    },
-    { href: "/parents", label: "Parents" },
-    {
-      href: joinLink || "/join",
-      label: "Join",
-      className:
-        "border-yellow-400 text-yellow-400 hover:border-yellow-500 hover:text-yellow-500",
-    },
-  ];
-
-  const socialLinks = [
-    {
-      href: "https://instagram.com",
-      icon: "/Icons/Instagram.webp",
-      label: "Instagram",
-    },
-    {
-      href: "https://discord.com",
-      icon: "/Icons/Discord.webp",
-      label: "Discord",
-    },
-    {
-      href: "https://www.tabroom.com/index/index.mhtml",
-      icon: "/Icons/Tabroom.webp",
-      label: "Tabroom",
-    },
-  ];
 
   return (
     <header className="sticky top-0 z-50">

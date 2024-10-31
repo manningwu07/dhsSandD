@@ -1,47 +1,12 @@
 import Link from "next/link";
 import { SocialIcon } from "./navbar";
+import navLinks from "../navLinks.json";
+import { useRouter } from "next/router";
+import { signInWithGoogle } from "~/lib/auth";
 
-// Need link for tournament results
-
-const studentLinks = [
-  { href: "/tournament", label: "Sign ups" },
-  { href: "/calendar", label: "Club Schedule" },
-  { href: "/https://www.tabroom.com/index/index.mhtml", label: "Tab room" },
-  { href: "/results", label: "Tournament Results" },
-  { href: "/https://www.speechanddebate.org/", label: "NSDA" },
-];
-
-// Need link for judge resgisteration
-
-const parentLinks = [
-  { href: "/register-judge", label: "Register as judge" },
-  { href: "/parents", label: "Parent judge info" },
-  { href: "/parents", label: "Volunteer" },
-  { href: "/https://www.speechanddebate.org/", label: "NSDA" },
-];
-
-const socialIcons = [
-  {
-    href: "https://instagram.com",
-    icon: "/Icons/Instagram.webp",
-    label: "Instagram",
-  },
-  {
-    href: "https://discord.com",
-    icon: "/Icons/Discord.webp",
-    label: "Discord",
-  },
-  {
-    href: "https://www.tabroom.com/index/index.mhtml",
-    icon: "/Icons/Tabroom.webp",
-    label: "Tabroom",
-  },
-  {
-    href: "mailto:dublinhighspeechanddebate@gmail.com",
-    icon: "/Icons/Email.png",
-    label: "Email",
-  },
-];
+const studentLinks = navLinks.footer.studentLinks;
+const parentLinks = navLinks.footer.parentLinks;
+const socialIcons = navLinks.footer.socialIcons;
 
 export default function Footer() {
   return (
@@ -65,7 +30,7 @@ export default function Footer() {
         <div className="mt-8 flex flex-col items-center justify-between border-t-2 border-gray-700 pt-8 md:flex-row">
           <p>&copy; {new Date().getFullYear()} All rights reserved</p>
           <p className="flex">
-            Created by <Link href="/admin">&nbsp;Manning Wu&nbsp;</Link> (Class of 2025)
+            Created by <SignInLink /> (Class of 2025)
           </p>
         </div>
       </div>
@@ -94,3 +59,23 @@ const Section = ({
     </ul>
   </div>
 );
+
+
+const handleSignInAndRedirect = () => {
+  const router = useRouter();
+  signInWithGoogle().then((userCredential) => {
+    if (userCredential) {
+      router.push("/admin"); // Redirect to /admin
+    } else {
+      console.error("Sign-in failed");
+    }
+  });
+};
+
+const SignInLink = () => {
+  return (
+    <Link href="#" onClick={(e) => { e.preventDefault(); handleSignInAndRedirect(); }}>
+      &nbsp;Manning Wu&nbsp;
+    </Link>
+  );
+};

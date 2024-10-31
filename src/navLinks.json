@@ -1,0 +1,117 @@
+{
+    "nav": {
+      "navItems": [
+        {
+          "href": "/",
+          "label": "Home"
+        },
+        {
+          "href": "/about",
+          "label": "About"
+        },
+        {
+          "href": "/club-events",
+          "label": "Club Events"
+        },
+        {
+          "href": "/tournament",
+          "label": "Tournament Info"
+        },
+        {
+          "href": "/board",
+          "label": "2024-2025 Board"
+        },
+        {
+          "href": "/parents",
+          "label": "Parents"
+        },
+        {
+          "href": "/join",
+          "label": "Join",
+          "className": "border-yellow-400 text-yellow-400 hover:border-yellow-500 hover:text-yellow-500"
+        }
+      ],
+      "socialLinks": [
+        {
+          "href": "https://instagram.com",
+          "icon": "/Icons/Instagram.webp",
+          "label": "Instagram"
+        },
+        {
+          "href": "https://discord.com",
+          "icon": "/Icons/Discord.webp",
+          "label": "Discord"
+        },
+        {
+          "href": "https://www.tabroom.com/index/index.mhtml",
+          "icon": "/Icons/Tabroom.webp",
+          "label": "Tabroom"
+        }
+      ]
+    },
+    "footer": {
+      "studentLinks": [
+        {
+          "href": "/tournament",
+          "label": "Sign ups"
+        },
+        {
+          "href": "/calendar",
+          "label": "Club Schedule"
+        },
+        {
+          "href": "https://www.tabroom.com/index/index.mhtml",
+          "label": "Tab room"
+        },
+        {
+          "href": "/results",
+          "label": "Tournament Results"
+        },
+        {
+          "href": "https://www.speechanddebate.org/",
+          "label": "NSDA"
+        }
+      ],
+      "parentLinks": [
+        {
+          "href": "/register-judge",
+          "label": "Register as judge"
+        },
+        {
+          "href": "/parents",
+          "label": "Parent judge info"
+        },
+        {
+          "href": "/parents",
+          "label": "Volunteer"
+        },
+        {
+          "href": "https://www.speechanddebate.org/",
+          "label": "NSDA"
+        }
+      ],
+      "socialIcons": [
+        {
+          "href": "https://instagram.com",
+          "icon": "/Icons/Instagram.webp",
+          "label": "Instagram"
+        },
+        {
+          "href": "https://discord.com",
+          "icon": "/Icons/Discord.webp",
+          "label": "Discord"
+        },
+        {
+          "href": "https://www.tabroom.com/index/index.mhtml",
+          "icon": "/Icons/Tabroom.webp",
+          "label": "Tabroom"
+        },
+        {
+          "href": "mailto:dublinhighspeechanddebate@gmail.com",
+          "icon": "/Icons/Email.png",
+          "label": "Email"
+        }
+      ]
+    }
+  }
+  

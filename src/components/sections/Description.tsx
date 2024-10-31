@@ -76,14 +76,14 @@ export default function Description({
         </div>
         <button
           onClick={goToPrevious}
-          className={`durationabsolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-black bg-opacity-50 p-2 text-white transition-opacity duration-500 ${isHovered ? "opacity-100" : "opacity-0"}`}
+          className={`duration absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-black bg-opacity-50 p-2 text-white transition-opacity duration-500 ${isHovered ? "opacity-100" : "opacity-0"}`}
           aria-label="Previous image"
         >
           <ChevronLeft className="h-6 w-6" />
         </button>
         <button
           onClick={goToNext}
-          className={`duration-500transition-all absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-black bg-opacity-50 p-2 text-white transition-opacity duration-500 ${isHovered ? "opacity-100" : "opacity-0"}`}
+          className={`absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-black bg-opacity-50 p-2 text-white transition-opacity duration-500 ${isHovered ? "opacity-100" : "opacity-0"}`}
           aria-label="Next image"
         >
           <ChevronRight className="h-6 w-6" />
