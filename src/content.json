@@ -1,0 +1,226 @@
+{
+  "components": {
+    "description": {
+      "card": [
+        {
+          "src": "/Landing/Display/DefaultPhoto.png",
+          "alt": "Test alt",
+          "header": "header 1",
+          "description": "desc 1"
+        },
+        {
+          "src": "/Landing/Display/One.png",
+          "alt": "Test alt",
+          "header": "header 2",
+          "description": "desc 2"
+        },
+        {
+          "src": "/Landing/Display/Two.png",
+          "alt": "Test alt",
+          "header": "header 3",
+          "description": "desc 3"
+        }
+      ],
+      "paragraphOne": "At Dublin High Speech and Debate, we develop our public speaking, teamwork, research, and critical thinking skills with the opportunity to represent Dublin High at competitive national tournaments every 2-6 weeks. Speech and Debate not only foster skills that are applicable to every career path, but also open up avenues for growth and achievement for anyone up to the challenge.",
+      "paragraphTwo": "Our community of 100+ members includes a wide range of skill levels - from new novices to nationally-ranked veterans; all are welcome."
+    },
+    "hero": {
+      "title": "Dublin High School",
+      "description": "SPEECH & DEBATE",
+      "buttonLink": "/"
+    }
+  },
+  "pages": {
+    "about": {
+      "introdution": {
+        "title": "Who we are",
+        "description": "Yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap.",
+        "imageSrc": "/about.png"
+      },
+      "whySpeechAndDebate": {
+        "title": "WHY SPEECH AND DEBATE?",
+        "description": "Speech and Debate aren't restricted to students who aspire to be politicians or lawyers. Many of our members aspire to work in STEM, business, and the arts -- yet, we value Speech and Debate for developing our lifelong skills in critical thinking, teamwork, writing, and communication. Here, we set aside our personal bias and previous knowledge to objectively debate both sides of an issue, a skill that will inevitably prove useful in our futures. Competing in Speech and Debate is a challenge anyone can embrace!",
+        "whySpeech": {
+          "title": "SPEECH",
+          "description": "Speech involves a presentation by one, two, or sometimes a group of students that is judged against a similar type of presentation in a round of competition. Speech events can involve extensive preparation, or next to none at all. There are more serious events that require speakers to be aware of current events and more interpretive events that allow speakers to recreate powerful moments in history and literature with a personalized touch."
+        },
+        "whyDebate": {
+          "title": "DEBATE",
+          "description": "Debate involves an individual or a team of debaters working to convince an unbiased judge of his or her side. Students participating in debate generally have to understand and prepare for both sides of a topic, and eventually have to argue both as well, developing unparalleled persuasion skills that this activity helps hone and refine for later on in life."
+        }
+      },
+      "parentWeNeedYou": {
+        "title": "Parents, We Need You!",
+        "description": "Your expertise and perspective are invaluable. Volunteer as a judge and help shape the future of our young debaters.",
+        "callToAction": "Register as Judge",
+        "link": "/"
+      }
+    },
+    "board": {
+      "students": [
+        {
+          "name": "ISHAAN GUPTA",
+          "position": "Senior Co-President",
+          "department": "PARLI, SPEECH",
+          "imageSrc": "/about.png"
+        },
+        {
+          "name": "HARVEER SAINI",
+          "position": "Junior Co-President",
+          "department": "PARLI, PF",
+          "imageSrc": "/placeholder.svg"
+        },
+        {
+          "name": "DARIA SPIRINA",
+          "position": "Vice President",
+          "department": "PF",
+          "imageSrc": "/placeholder.svg"
+        },
+        {
+          "name": "HARSHA VAJRALA",
+          "position": "Secretary",
+          "department": "PARLI",
+          "imageSrc": "/placeholder.svg"
+        },
+        {
+          "name": "NIKHILESH SURAVARJJALA",
+          "position": "Treasurer",
+          "department": "PARLI & CONGRESS",
+          "imageSrc": "/placeholder.svg"
+        },
+        {
+          "name": "TARUN RAJESH",
+          "position": "Debate Captain",
+          "department": "PARLI",
+          "imageSrc": "/placeholder.svg"
+        },
+        {
+          "name": "SAHIRA RAJ",
+          "position": "Debate Captain",
+          "department": "PARLI & PF",
+          "imageSrc": "/placeholder.svg"
+        },
+        {
+          "name": "ANDREA YU",
+          "position": "Outreach officer",
+          "department": "PARLI",
+          "imageSrc": "/placeholder.svg"
+        }
+      ],
+      "parents": [
+        {
+          "name": "HIMALI GANDHI",
+          "position": "Parent Advisor",
+          "department": "Debate",
+          "imageSrc": "/placeholder.svg"
+        }
+      ]
+    },
+    "clubEvents": {
+      "title": "Club Events",
+      "description": "Dates to put on your calendar:",
+      "calendarLink": "https://calendar.google.com/calendar/embed?src=your_calendar_id&ctz=America%2FNew_York",
+      "events": [
+        {
+          "date": "2024-10-05",
+          "title": "Mock Tournament"
+        },
+        {
+          "date": "2024-10-12",
+          "title": "Workshop: Impromptu Speaking"
+        },
+        {
+          "date": "2024-10-19",
+          "title": "Regional Qualifier"
+        },
+        {
+          "date": "2024-10-26",
+          "title": "Team Social Event"
+        }
+      ]
+    },
+    "landing": {
+      "card": [
+        {
+          "src": "/Landing/test1.png",
+          "header": "Schedule",
+          "description": "Check out the events we have coming up!",
+          "link": "/"
+        },
+        {
+          "src": "",
+          "header": "Tournament Sign Ups",
+          "description": "Join our tournaments!",
+          "link": "/"
+        },
+        {
+          "src": "",
+          "header": "Parent information",
+          "description": "Information for parents!",
+          "link": "/"
+        }
+      ]
+    },
+    "tournament": {},
+    "parents": {
+      "title": "Parent Information Judge Training",
+      "mentorGuide": {
+        "title": "Mentor Guide",
+        "description": "This video provides an overview of what to expect as a judge in speech and debate tournaments.",
+        "accordionItems": [
+          {
+            "title": "Preparing for Your First Tournament",
+            "description": [
+              "Familiarize yourself with the event rules",
+              "Review judging criteria and scoring guidelines",
+              "Arrive early to the tournament for orientation",
+              "Bring necessary materials (pen, paper, timer)"
+            ]
+          },
+          {
+            "title": "During the Round",
+            "description": [
+              "Maintain a neutral expression",
+              "Take detailed notes",
+              "Time the speeches accurately",
+              "Focus on content, delivery, and organization"
+            ]
+          },
+          {
+            "title": "After the Round",
+            "description": [
+              "Complete the ballot thoroughly",
+              "Provide constructive feedback",
+              "Submit your decision promptly",
+              "Maintain confidentiality about results"
+            ]
+          }
+        ]
+      },
+      "videoOne": {
+        "src": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        "title": "Introduction to Judging",
+        "description": "This video provides an overview of what to expect as a judge in speech and debate tournaments."
+      },
+      "videoTwo": {
+        "src": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        "title": "Detailed Judging Process",
+        "description": "This video goes into the specifics of how to judge different events and fill out ballots."
+      },
+      "additionalResourcesLinks": [
+        {
+          "link": "#",
+          "title": "Judging Handbook (PDF)"
+        },
+        {
+          "link": "#",
+          "title": "Event Rules and Descriptions"
+        },
+        {
+          "link": "#",
+          "title": "FAQs for New Judges"
+        }
+      ]
+    }
+  }
+}

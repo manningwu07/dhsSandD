@@ -2,64 +2,20 @@ import { motion } from "framer-motion";
 import LeadershipCard from "~/components/card/BoardCard";
 import Footer from "~/components/footer";
 import Navbar from "~/components/navbar";
+import content from "../content.json";
 
-const officers = [
-  {
-    name: "ISHAAN GUPTA",
-    position: "Senior Co-President",
-    department: "PARLI, SPEECH",
-    imageSrc: "/about.png",
-  },
-  {
-    name: "HARVEER SAINI",
-    position: "Junior Co-President",
-    department: "PARLI, PF",
-    imageSrc: "/placeholder.svg",
-  },
-  {
-    name: "DARIA SPIRINA",
-    position: "Vice President",
-    department: "PF",
-    imageSrc: "/placeholder.svg",
-  },
-  {
-    name: "HARSHA VAJRALA",
-    position: "Secretary",
-    department: "PARLI",
-    imageSrc: "/placeholder.svg",
-  },
-  {
-    name: "NIKHILESH SURAVARJJALA",
-    position: "Treasurer",
-    department: "PARLI & CONGRESS",
-    imageSrc: "/placeholder.svg",
-  },
-  {
-    name: "TARUN RAJESH",
-    position: "Debate Captain",
-    department: "PARLI",
-    imageSrc: "/placeholder.svg",
-  },
-  {
-    name: "SAHIRA RAJ",
-    position: "Debate Captain",
-    department: "PARLI & PF",
-    imageSrc: "/placeholder.svg",
-  },
-  {
-    name: "ANDREA YU",
-    position: "Outreach officer",
-    department: "PARLI",
-    imageSrc: "/placeholder.svg",
-  },
-];
+const officers = content.pages.board.students;
+const advisors = content.pages.board.parents;
 
 export default function BoardPage() {
+  const cols = advisors.length < 5 ? advisors.length : 4;
+  const layoutClass = `grid grid-cols-1 justify-items-center gap-6 md:grid-cols-${cols} lg:grid-cols-${cols} 2xl:grid-cols-${cols}`;
+
   return (
     <div className="min-h-screen overflow-hidden bg-[url('/Background.webp')] bg-cover bg-fixed bg-center text-white">
       <Navbar />
       <div className="px-4 py-12 md:px-8">
-        <div className="mx-auto max-w-8xl">
+        <div className="max-w-8xl mx-auto">
           <h1 className="mb-10 text-center text-4xl font-bold md:text-5xl">
             2024-2025 OFFICER BOARD
           </h1>
@@ -70,25 +26,29 @@ export default function BoardPage() {
                 initial={{ x: 75, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 1 }}
-                className="relative w-full h-full"
+                className="relative h-full w-full flex justify-center"
               >
-                <LeadershipCard key={index} {...officer} />  
+                <LeadershipCard key={index} {...officer} />
               </motion.div>
-              
             ))}
           </div>
         </div>
         <div className="mt-16">
           <h2 className="mb-8 text-center text-3xl font-bold text-white">
-            Parent Advisor
+            Parent Advisor{advisors.length > 1 && "s"}
           </h2>
-          <div className="max-w-md mx-auto">
-            <LeadershipCard
-              name="HIMALI GANDHI"
-              position="Parent Advisor"
-              department="Debate"
-              imageSrc="/placeholder.svg"
-            />
+          <div className={layoutClass}>
+            {advisors.map((advisor, index) => (
+              <motion.div
+                key={index}
+                initial={{ x: 75, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 1 }}
+                className="relative h-full w-full max-w-md flex justify-center"
+              >
+                <LeadershipCard key={index} {...advisor} />
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>

@@ -8,6 +8,9 @@ import {
 import Link from "next/link";
 import Footer from "~/components/footer";
 import Navbar from "~/components/navbar";
+import content from "../content.json";
+
+const parentContent = content.pages.parents;
 
 function VideoCard({
   src,
@@ -44,56 +47,35 @@ export default function ParentInfoJudgeTraining() {
       <Navbar />
       <div className="container mx-auto flex flex-col p-8">
         <h1 className="mb-8 text-center text-4xl font-bold">
-          Parent Information Judge Training
+          {parentContent.title}
         </h1>
 
         <div className="space-y-8">
           <VideoCard
-            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-            title="Introduction to Judging"
-            description="This video provides an overview of what to expect as a judge in speech and debate tournaments."
+            src={parentContent.videoOne.src}
+            title={parentContent.videoOne.title}
+            description={parentContent.videoOne.description}
           />
           <Card className="bg-zinc-800 bg-opacity-80">
             <CardHeader>
-              <CardTitle>Mentor Guide</CardTitle>
+              <CardTitle className="md:text-xl lg:text-2xl">
+                {parentContent.mentorGuide.title}
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <Accordion type="single" collapsible>
-                <AccordionItem value="item-1">
-                  <AccordionTrigger>
-                    Preparing for Your First Tournament
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <ul className="list-disc space-y-2 pl-5">
-                      <li>Familiarize yourself with the event rules</li>
-                      <li>Review judging criteria and scoring guidelines</li>
-                      <li>Arrive early to the tournament for orientation</li>
-                      <li>Bring necessary materials (pen, paper, timer)</li>
-                    </ul>
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-2">
-                  <AccordionTrigger>During the Round</AccordionTrigger>
-                  <AccordionContent>
-                    <ul className="list-disc space-y-2 pl-5">
-                      <li>Maintain a neutral expression</li>
-                      <li>Take detailed notes</li>
-                      <li>Time the speeches accurately</li>
-                      <li>Focus on content, delivery, and organization</li>
-                    </ul>
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-3">
-                  <AccordionTrigger>After the Round</AccordionTrigger>
-                  <AccordionContent>
-                    <ul className="list-disc space-y-2 pl-5">
-                      <li>Complete the ballot thoroughly</li>
-                      <li>Provide constructive feedback</li>
-                      <li>Submit your decision promptly</li>
-                      <li>Maintain confidentiality about results</li>
-                    </ul>
-                  </AccordionContent>
-                </AccordionItem>
+                {parentContent.mentorGuide.accordionItems.map((section, sectionIndex) => (
+                  <AccordionItem key={sectionIndex} value={`item-${sectionIndex}`}>
+                    <AccordionTrigger className="md:text-lg lg:text-xl font-semibold">
+                      {section.title}
+                    </AccordionTrigger>
+                    <AccordionContent className="lg:text-lg">
+                      {section.description.map((item, itemIndex) => (
+                        <li key={itemIndex}>{item}</li>
+                      ))}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
               </Accordion>
             </CardContent>
           </Card>
@@ -104,26 +86,18 @@ export default function ParentInfoJudgeTraining() {
           />
           <Card className="bg-zinc-800 bg-opacity-80">
             <CardHeader>
-              <CardTitle>Additional Resources</CardTitle>
+              <CardTitle className="md:text-lg lg:text-xl font-semibold">
+                Additional Resources
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <ul className="list-disc space-y-2 pl-5">
-                <li>
-                  <Link href="#" className="text-blue-600 hover:underline">
-                    Judging Handbook (PDF)
+              {parentContent.additionalResourcesLinks.map((link, index) => (
+                <li key={index} className="mb-2 lg:text-lg">
+                  <Link href={link.link} className="text-blue-600 hover:underline">
+                    {link.title}
                   </Link>
                 </li>
-                <li>
-                  <Link href="#" className="text-blue-600 hover:underline">
-                    Event Rules and Descriptions
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-blue-600 hover:underline">
-                    FAQs for New Judges
-                  </Link>
-                </li>
-              </ul>
+              ))} 
             </CardContent>
           </Card>
         </div>

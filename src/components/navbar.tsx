@@ -5,6 +5,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { X, Menu } from "lucide-react";
+import content from "../content.json";
+import { join } from "path";
+
+const joinLink = content.components.hero.buttonLink;
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,8 +25,8 @@ export default function Navbar() {
       label: "About",
     },
     {
-      href: "/calendar",
-      label: "Calendar",
+      href: "/club-events",
+      label: "Club Events",
     },
     {
       href: "/tournament",
@@ -34,7 +38,7 @@ export default function Navbar() {
     },
     { href: "/parents", label: "Parents" },
     {
-      href: "/join",
+      href: joinLink || "/join",
       label: "Join",
       className:
         "border-yellow-400 text-yellow-400 hover:border-yellow-500 hover:text-yellow-500",

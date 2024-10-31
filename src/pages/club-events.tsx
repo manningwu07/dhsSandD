@@ -6,16 +6,13 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
+import content from "../content.json";
+
+const clubEventsContent = content.pages.clubEvents;
+
+const events = clubEventsContent.events;
 
 export default function ClubEvents() {
-  const events = [
-    { date: new Date(2024, 10, 5), title: "Mock Tournament" },
-    { date: new Date(2024, 10, 12), title: "Workshop: Impromptu Speaking" },
-    { date: new Date(2024, 10, 19), title: "Regional Qualifier" },
-    { date: new Date(2024, 10, 26), title: "Team Social Event" },
-  ];
-
-
   return (
     <div className="min-h-screen overflow-hidden bg-[url('/Background.webp')] bg-cover bg-fixed bg-center text-white">
       <Navbar />
@@ -40,7 +37,7 @@ export default function ClubEvents() {
             </div>
           </CardContent>
         </Card>
-
+        {/* Find some way to seperate the 2 based on JSON date */}
         <div className="mx-auto mt-8 max-w-5xl rounded-xl bg-zinc-800 bg-opacity-80 p-2">
           <h2 className="mb-4 text-2xl font-semibold">Upcoming Events</h2>
           <ul className="space-y-2">
@@ -50,7 +47,21 @@ export default function ClubEvents() {
                 className="flex items-center justify-between border-b pb-2"
               >
                 <span>{event.title}</span>
-                <span>{event.date.toLocaleDateString()}</span>
+                <span>{event.date}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="mx-auto mt-8 max-w-5xl rounded-xl bg-zinc-800 bg-opacity-80 p-2">
+          <h2 className="mb-4 text-2xl font-semibold">Past Events</h2>
+          <ul className="space-y-2">
+            {events.map((event, index) => (
+              <li
+                key={index}
+                className="flex items-center justify-between border-b pb-2"
+              >
+                <span>{event.title}</span>
+                <span>{event.date}</span>
               </li>
             ))}
           </ul>

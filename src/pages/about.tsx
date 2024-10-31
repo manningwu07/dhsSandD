@@ -4,6 +4,9 @@ import Hero from "~/components/sections/Hero";
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent } from "~/components/ui/card";
+import content from "../content.json";
+
+const aboutContent = content.pages.about;
 
 function ActionButton({ link, text }: { link: string; text: string }) {
   return (
@@ -23,19 +26,17 @@ export default function AboutPage() {
         {/* Text Content */}
         <div className="flex flex-col items-center justify-center p-2 text-center text-white md:p-3 md:text-left lg:p-4 2xl:p-5">
           <h1 className="mb-4 text-xl font-bold md:text-2xl lg:text-3xl">
-            Who we are
+            {aboutContent.introdution.title}
           </h1>
           <p className="leading-relaxed md:text-xl">
-            Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap
-            Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap Yap
-            Yap Yap.
+            {aboutContent.introdution.description}
           </p>
         </div>
 
         {/* Image */}
         <div className="relative aspect-[3/2] w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
           <Image
-            src="/about.png"
+            src={aboutContent.introdution.imageSrc}
             alt="about"
             fill
             className="rounded-lg object-cover shadow-lg"
@@ -46,41 +47,22 @@ export default function AboutPage() {
       <section className="px-4 py-12 md:px-8">
         <div className="mx-auto max-w-6xl">
           <h2 className="mb-6 text-center text-4xl font-bold md:text-5xl">
-            WHY SPEECH AND DEBATE?
+            {aboutContent.whySpeechAndDebate.title}
           </h2>
           <p className="mx-auto mb-8 max-w-3xl text-center text-lg md:mb-12">
-            Speech and Debate aren&apos;t restricted to students who aspire to be
-            politicians or lawyers. Many of our members aspire to work in STEM,
-            business, and the arts -- yet, we value Speech and Debate for
-            developing our lifelong skills in critical thinking, teamwork,
-            writing, and communication. Here, we set aside our personal bias and
-            previous knowledge to objectively debate both sides of an issue, a
-            skill that will inevitably prove useful in our futures. Competing in
-            Speech and Debate is a challenge anyone can embrace!
+            {aboutContent.whySpeechAndDebate.description}
           </p>
           <div className="grid gap-8 md:grid-cols-2">
             <div className="rounded-lg bg-gray-800 bg-opacity-80 p-6">
-              <h3 className="mb-4 text-2xl font-bold">SPEECH</h3>
+              <h3 className="mb-4 text-2xl font-bold">{aboutContent.whySpeechAndDebate.whySpeech.title}</h3>
               <p>
-                Speech involves a presentation by one, two, or sometimes a group
-                of students that is judged against a similar type of
-                presentation in a round of competition. Speech events can
-                involve extensive preparation, or next to none at all. There are
-                more serious events that require speakers to be aware of current
-                events and more interpretive events that allow speakers to
-                recreate powerful moments in history and literature with a
-                personalized touch.
+                {aboutContent.whySpeechAndDebate.whySpeech.description}
               </p>
             </div>
             <div className="rounded-lg bg-gray-800 bg-opacity-80 p-6">
-              <h3 className="mb-4 text-2xl font-bold">DEBATE</h3>
+              <h3 className="mb-4 text-2xl font-bold">{aboutContent.whySpeechAndDebate.whyDebate.title}</h3>
               <p>
-                Debate involves an individual or a team of debaters working to
-                convince an unbiased judge of his or her side. Students
-                participating in debate generally have to understand and prepare
-                for both sides of a topic, and eventually have to argue both as
-                well, developing unparalleled persuasion skills that this
-                activity helps hone and refine for later on in life.
+                {aboutContent.whySpeechAndDebate.whyDebate.description}
               </p>
             </div>
           </div>
@@ -92,18 +74,17 @@ export default function AboutPage() {
           <Card className="bg-primary text-primary-foreground mx-auto max-w-2xl bg-zinc-900 bg-opacity-80 shadow-lg shadow-zinc-400">
             <CardContent className="p-6">
               <h3 className="mb-4 text-center text-2xl font-bold">
-                Parents, We Need You!
+                {aboutContent.parentWeNeedYou.title}
               </h3>
               <p className="mb-4 text-center">
-                Your expertise and perspective are invaluable. Volunteer as a
-                judge and help shape the future of our young debaters.
+                {aboutContent.parentWeNeedYou.description}
               </p>
               <div className="flex justify-center">
                 <Link
-                  href="/"
+                  href={aboutContent.parentWeNeedYou.link}
                   className="w-fit rounded-lg bg-red/80 px-3 py-2 transition-all duration-200 hover:bg-red"
                 >
-                  Register as Judge
+                  {aboutContent.parentWeNeedYou.callToAction}
                 </Link>
               </div>
             </CardContent>

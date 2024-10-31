@@ -3,7 +3,6 @@ import Footer from "~/components/footer";
 import Navbar from "~/components/navbar";
 import Description from "~/components/sections/Description";
 import Hero from "~/components/sections/Hero";
-import content from "../content.json";
 
 interface CarouselImage {
   src: string;
@@ -12,8 +11,26 @@ interface CarouselImage {
   description: string;
 }
 
-const cards = content.pages.landing.card;
-const descriptionCards: CarouselImage[] = content.components.description.card;
+const images: CarouselImage[] = [
+  {
+    src: "/Landing/Display/DefaultPhoto.png",
+    alt: "Test alt",
+    header: "header 1",
+    description: "desc 1",
+  },
+  {
+    src: "/Landing/Display/One.png",
+    alt: "Test alt",
+    header: "header 2",
+    description: "desc 2",
+  },
+  {
+    src: "/Landing/Display/Two.png",
+    alt: "Test alt",
+    header: "header 3",
+    description: "desc 3",
+  },
+];
 
 export default function LandingPage() {
   return (
@@ -26,19 +43,30 @@ export default function LandingPage() {
         <Hero />
 
         <div className="my-20 grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6 lg:gap-8 2xl:gap-12">
-          {cards.map((card, index) => (
-            <LandingCard
-              key={index}
-              src={card.src}
-              alt={card.header}
-              header={card.header}
-              description={card.description}
-              link={card.link}
-            />
-          ))}
+          <LandingCard
+            src={"/Landing/test1.png"}
+            alt={"Test alt"}
+            header={"Schedule"}
+            description={"Check out the events we have coming up!"}
+            link={"/"}
+          />
+          <LandingCard
+            src={""}
+            alt={""}
+            header={"Tournument Sign Ups"}
+            description={"Join our tournaments!"}
+            link={"/"}
+          />
+          <LandingCard
+            src={""}
+            alt={""}
+            header={"Parent information"}
+            description={"Information for parents!"}
+            link={"/"}
+          />
         </div>
         <div className="container mx-auto p-8">
-          <Description images={descriptionCards} />
+          <Description images={images} />
         </div>
         <div>
           {/* Build some sort of welcome section that introduces speech and debate, etc.  */}
