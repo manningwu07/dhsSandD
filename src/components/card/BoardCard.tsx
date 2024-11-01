@@ -17,7 +17,7 @@ export default function LeadershipCard({
     <div className="group relative h-[400px] w-full max-w-[500px]">
       <div className="absolute left-0 top-0 z-10 h-full w-11/12">
         <Image
-          src={imageSrc}
+          src={imageSrc || "/placeholder.svg"}
           alt={`${name} - ${position}`}
           layout="fill"
           objectFit="cover"

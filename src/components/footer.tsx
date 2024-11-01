@@ -9,6 +9,32 @@ const parentLinks = navLinks.footer.parentLinks;
 const socialIcons = navLinks.footer.socialIcons;
 
 export default function Footer() {
+  const router = useRouter();
+  
+  const SignInLink = () => {
+    return (
+      <Link
+        href="#"
+        onClick={(e) => {
+          e.preventDefault();
+          handleSignInAndRedirect();
+        }}
+      >
+        &nbsp;Manning Wu&nbsp;
+      </Link>
+    );
+  };
+
+  const handleSignInAndRedirect = () => {
+    signInWithGoogle().then((userCredential) => {
+      if (userCredential) {
+        router.push("/admin"); // Redirect to /admin
+      } else {
+        console.error("Sign-in failed");
+      }
+    });
+  };
+
   return (
     <footer className="py-8 text-white">
       <div className="container mx-auto px-8">
@@ -59,23 +85,3 @@ const Section = ({
     </ul>
   </div>
 );
-
-
-const handleSignInAndRedirect = () => {
-  const router = useRouter();
-  signInWithGoogle().then((userCredential) => {
-    if (userCredential) {
-      router.push("/admin"); // Redirect to /admin
-    } else {
-      console.error("Sign-in failed");
-    }
-  });
-};
-
-const SignInLink = () => {
-  return (
-    <Link href="#" onClick={(e) => { e.preventDefault(); handleSignInAndRedirect(); }}>
-      &nbsp;Manning Wu&nbsp;
-    </Link>
-  );
-};

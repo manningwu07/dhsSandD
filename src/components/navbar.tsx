@@ -143,7 +143,7 @@ export function SocialIcon({
     <Link href={href} aria-label={label} className="px-1">
       <div className="h-10 w-10 overflow-hidden rounded-full hover:scale-105">
         <Image
-          src={icon}
+          src={icon || "/placeholder.svg"}
           alt={label}
           width={40}
           height={40}

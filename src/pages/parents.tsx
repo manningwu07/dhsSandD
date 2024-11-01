@@ -80,9 +80,9 @@ export default function ParentInfoJudgeTraining() {
             </CardContent>
           </Card>
           <VideoCard
-            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-            title="Detailed Judging Process"
-            description="This video goes into the specifics of how to judge different events and fill out ballots."
+            src={parentContent.videoTwo.src}
+            title={parentContent.videoTwo.title}
+            description={parentContent.videoTwo.description}
           />
           <Card className="bg-zinc-800 bg-opacity-80">
             <CardHeader>

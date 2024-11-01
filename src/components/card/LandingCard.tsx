@@ -17,7 +17,7 @@ export default function LandingCard({
   return (
     <div className="border-black relative flex flex-col rounded-xl border shadow-lg">
       <Image
-        src={src}
+        src={src || "/placeholder.svg"}
         alt={alt}
         width={600}
         height={500}

@@ -50,7 +50,7 @@ export default function Description({
           {images.map((image, index) => (
             <Image
               key={index}
-              src={image.src}
+              src={image.src || "/placeholder.svg"}
               alt={image.alt}
               layout="fill"
               objectFit="cover"

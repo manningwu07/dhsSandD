@@ -36,7 +36,7 @@ export default function AboutPage() {
         {/* Image */}
         <div className="relative aspect-[3/2] w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
           <Image
-            src={aboutContent.introdution.imageSrc}
+            src={aboutContent.introdution.imageSrc || "/placeholder.svg"}
             alt="about"
             fill
             className="rounded-lg object-cover shadow-lg"

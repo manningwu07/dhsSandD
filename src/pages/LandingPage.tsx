@@ -29,7 +29,7 @@ export default function LandingPage() {
           {cards.map((card, index) => (
             <LandingCard
               key={index}
-              src={card.src}
+              src={card.src || "/placeholder.svg"}
               alt={card.header}
               header={card.header}
               description={card.description}

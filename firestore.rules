@@ -1,0 +1,18 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+  	function isAuthorized(auth) {
+  		return auth != null && (
+      	get(/databases/$(database)/documents/dhsSpeechAndDebate/authorizedUsers).data.admin.hasAny([auth.token.email]) || 
+      
+  	  	get(/databases/$(database)/documents/dhsSpeechAndDebate/authorizedUsers).data.owner == auth.token.email
+  		);
+		}
+  
+    match /dhsSpeechAndDebate/authorizedUsers {
+      allow read, write: if isAuthorized(request.auth);
+    }
+  }
+}
+

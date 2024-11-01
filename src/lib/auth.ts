@@ -1,6 +1,9 @@
 // auth.ts
 import { auth, googleProvider } from "./firebase";
 import { signInWithPopup, UserCredential } from "firebase/auth";
+import { doc, getDoc, getFirestore } from 'firebase/firestore';
+
+const db = getFirestore();
 
 // Function to sign in with Google
 export const signInWithGoogle = async (): Promise<UserCredential | void> => {
@@ -13,3 +16,18 @@ export const signInWithGoogle = async (): Promise<UserCredential | void> => {
   }
 };
 
+// Function to check if user is an admin
+export const checkIfAdmin = async (userEmail: string) => {
+  const docRef = doc(db, 'dhsSpeechAndDebate', 'authorizedUsers');
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    console.log("DocSnap:", docSnap.data());
+    const adminEmails = docSnap.data()?.admin || [];
+    const ownerEmail = docSnap.data()?.owner;
+    console.log("adminEmails", adminEmails);
+    console.log("userEmail", userEmail);
+    return adminEmails.includes(userEmail) || ownerEmail === userEmail;
+  }
+  return false;
+};
