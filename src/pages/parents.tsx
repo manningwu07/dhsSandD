@@ -8,9 +8,7 @@ import {
 import Link from "next/link";
 import Footer from "~/components/footer";
 import Navbar from "~/components/navbar";
-import content from "../content.json";
-
-const parentContent = content.pages.parents;
+import { PageProps, useContent } from "~/utils/pageUtils";
 
 function VideoCard({
   src,
@@ -41,7 +39,10 @@ function VideoCard({
   );
 }
 
-export default function ParentInfoJudgeTraining() {
+export default function ParentsPage({ content: providedContent }: PageProps) {
+  const content = useContent(providedContent)
+  const parentContent = content.pages.parents;
+  
   return (
     <div className="min-h-screen overflow-hidden bg-[url('/Background.webp')] bg-cover bg-fixed bg-center text-white">
       <Navbar />

@@ -11,10 +11,16 @@ interface CarouselImage {
   description: string;
 }
 
+interface DescriptionParagraph {
+  paragraph: string;
+}
+
 export default function Description({
   images = [],
+  description,
 }: {
   images: CarouselImage[];
+  description: DescriptionParagraph[];
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
@@ -91,18 +97,9 @@ export default function Description({
       </div>
       {/* Text Content */}
       <div className="space-y-4 md:w-1/2">
-        <p>
-          At Dublin High Speech and Debate, we develop our public speaking,
-          teamwork, research, and critical thinking skills with the opportunity
-          to represent Dublin High at competitive national tournaments every 2-6
-          weeks. Speech and Debate not only foster skills that are applicable to
-          every career path, but also open up avenues for growth and achievement
-          for anyone up to the challenge.
-        </p>
-        <p>
-          Our community of 100+ members includes a wide range of skill levels -
-          from new novices to nationally-ranked veterans; all are welcome.
-        </p>
+        {description.map((paragraph, index) => (
+          <p key={index}>{paragraph.paragraph}</p>
+        ))}
       </div>
     </div>
   );

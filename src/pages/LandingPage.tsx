@@ -1,21 +1,24 @@
-import LandingCard from "~/components/card/LandingCard";
-import Footer from "~/components/footer";
-import Navbar from "~/components/navbar";
-import Description from "~/components/sections/Description";
-import Hero from "~/components/sections/Hero";
-import content from "../content.json";
+import LandingCard from "~/components/card/LandingCard"
+import Footer from "~/components/footer"
+import Navbar from "~/components/navbar"
+import Description from "~/components/sections/Description"
+import Hero from "~/components/sections/Hero"
+import { PageProps, useContent } from '~/utils/pageUtils'
 
 interface CarouselImage {
-  src: string;
-  alt: string;
-  header: string;
-  description: string;
+  src: string
+  alt: string
+  header: string
+  description: string
 }
 
-const cards = content.pages.landing.card;
-const descriptionCards: CarouselImage[] = content.components.description.card;
+export default function LandingPage({ content: providedContent }: PageProps) {
+  const content = useContent(providedContent)
 
-export default function LandingPage() {
+  const cards = content.pages.landing.card
+  const images: CarouselImage[] = content.pages.landing.description.card
+  const paragraphs = content.pages.landing.description.paragraphs
+
   return (
     <div className="min-h-screen overflow-hidden bg-[url('/Background.webp')] bg-cover bg-fixed bg-center text-white">
       <div className="absolute inset-0 -z-40 bg-black opacity-40" />
@@ -38,7 +41,7 @@ export default function LandingPage() {
           ))}
         </div>
         <div className="container mx-auto p-8">
-          <Description images={descriptionCards} />
+          <Description images={images} description={paragraphs}/>
         </div>
         <div>
           {/* Build some sort of welcome section that introduces speech and debate, etc.  */}

@@ -13,6 +13,10 @@ service cloud.firestore {
     match /dhsSpeechAndDebate/authorizedUsers {
       allow read, write: if isAuthorized(request.auth);
     }
+
+	 match /dhsSpeechAndDebate/content {
+      allow read, write: if isAuthorized(request.auth);
+    }
   }
 }
 

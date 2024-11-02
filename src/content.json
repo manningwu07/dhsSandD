@@ -1,29 +1,5 @@
 {
   "components": {
-    "description": {
-      "card": [
-        {
-          "src": "/Landing/Display/DefaultPhoto.png",
-          "alt": "Test alt",
-          "header": "header 1",
-          "description": "desc 1"
-        },
-        {
-          "src": "/Landing/Display/One.png",
-          "alt": "Test alt",
-          "header": "header 2",
-          "description": "desc 2"
-        },
-        {
-          "src": "/Landing/Display/Two.png",
-          "alt": "Test alt",
-          "header": "header 3",
-          "description": "desc 3"
-        }
-      ],
-      "paragraphOne": "At Dublin High Speech and Debate, we develop our public speaking, teamwork, research, and critical thinking skills with the opportunity to represent Dublin High at competitive national tournaments every 2-6 weeks. Speech and Debate not only foster skills that are applicable to every career path, but also open up avenues for growth and achievement for anyone up to the challenge.",
-      "paragraphTwo": "Our community of 100+ members includes a wide range of skill levels - from new novices to nationally-ranked veterans; all are welcome."
-    },
     "hero": {
       "title": "Dublin High School",
       "description": "SPEECH & DEBATE",
@@ -159,9 +135,97 @@
           "description": "Information for parents!",
           "link": "/"
         }
-      ]
+      ],
+      "description": {
+        "card": [
+          {
+            "src": "/Landing/Display/DefaultPhoto.png",
+            "alt": "Test alt",
+            "header": "header 1",
+            "description": "desc 1"
+          },
+          {
+            "src": "/Landing/Display/One.png",
+            "alt": "Test alt",
+            "header": "header 2",
+            "description": "desc 2"
+          },
+          {
+            "src": "/Landing/Display/Two.png",
+            "alt": "Test alt",
+            "header": "header 3",
+            "description": "desc 3"
+          }
+        ],
+        "paragraphs": [
+          {
+            "paragraph": "At Dublin High Speech and Debate, we develop our public speaking, teamwork, research, and critical thinking skills with the opportunity to represent Dublin High at competitive national tournaments every 2-6 weeks. Speech and Debate not only foster skills that are applicable to every career path, but also open up avenues for growth and achievement for anyone up to the challenge."
+          },
+          {
+            "paragraph": "Our community of 100+ members includes a wide range of skill levels - from new novices to nationally-ranked veterans; all are welcome."
+          }
+        ]
+      }
     },
-    "tournament": {},
+    "tournament": {
+      "signUpInstructions": [
+        {
+          "title": "Most Fool-Proof Method",
+          "description": "Approach a Board Member in person",
+          "accordionItems": [
+            {
+              "trigger": "Who to approach?",
+              "content": "Preferably Ishaan, Harveer, or a Captain during a meeting."
+            },
+            {
+              "trigger": "What information to provide?",
+              "content": [
+                "If you can provide a judge + their Tabroom account email",
+                "Event and division you wish to enter in",
+                "Your Tabroom account email"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Alternate Method",
+          "description": "Online sign-up process",
+          "accordionItems": [
+            {
+              "trigger": "Step 1: Google Form",
+              "content": "Complete a sign-up Google form."
+            },
+            {
+              "trigger": "Step 2: Message a Board Member",
+              "content": [
+                "Directly message a Board Member on Discord with the following info:",
+                "If you can provide a judge + their Tabroom account email",
+                "Event and division you wish to enter in",
+                "Your Tabroom account email"
+              ]
+            }
+          ]
+        }
+      ],
+      "calendarLink": "https://calendar.google.com/calendar/embed?src=your_calendar_id&ctz=America%2FNew_York",
+      "formsToComplete": [
+        "Tournament Registration Form",
+        "Parental Consent Form",
+        "Medical Information Form",
+        "Code of Conduct Agreement"
+      ],
+      "eligibilityRules": [
+        "Must be an active member of Dublin High Speech and Debate.",
+        "Maintain a GPA of 2.5 or higher.",
+        "Attend at least 80% of team practices.",
+        "Complete all required forms by the specified deadlines.",
+        "Adhere to the team's code of conduct."
+      ],
+      "submissionDetails": {
+        "email": "dublinhighspeechanddebate@gmail.com",
+        "physicalSubmission": "Room 306 during lunch hours"
+      }
+    },
     "parents": {
       "title": "Parent Information Judge Training",
       "mentorGuide": {

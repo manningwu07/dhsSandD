@@ -4,9 +4,7 @@ import Hero from "~/components/sections/Hero";
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent } from "~/components/ui/card";
-import content from "../content.json";
-
-const aboutContent = content.pages.about;
+import { PageProps, useContent } from "~/utils/pageUtils";
 
 function ActionButton({ link, text }: { link: string; text: string }) {
   return (
@@ -16,7 +14,10 @@ function ActionButton({ link, text }: { link: string; text: string }) {
   );
 }
 
-export default function AboutPage() {
+export default function AboutPage({ content: providedContent }: PageProps) {
+  const content = useContent(providedContent)
+  const aboutContent = content.pages.about;
+
   return (
     <div className="min-h-screen overflow-hidden bg-[url('/Background.webp')] bg-cover bg-fixed bg-center text-white">
       <Navbar />

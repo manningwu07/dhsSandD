@@ -2,12 +2,13 @@ import { motion } from "framer-motion";
 import LeadershipCard from "~/components/card/BoardCard";
 import Footer from "~/components/footer";
 import Navbar from "~/components/navbar";
-import content from "../content.json";
+import { PageProps, useContent } from "~/utils/pageUtils";
 
-const officers = content.pages.board.students;
-const advisors = content.pages.board.parents;
-
-export default function BoardPage() {
+export default function BoardPage({ content: providedContent }: PageProps) {
+  const content = useContent(providedContent);
+  
+  const officers = content.pages.board.students;
+  const advisors = content.pages.board.parents;
   const cols = advisors.length < 5 ? advisors.length : 4;
   const layoutClass = `grid grid-cols-1 justify-items-center gap-6 md:grid-cols-${cols} lg:grid-cols-${cols} 2xl:grid-cols-${cols}`;
 
@@ -26,7 +27,7 @@ export default function BoardPage() {
                 initial={{ x: 75, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 1 }}
-                className="relative h-full w-full flex justify-center"
+                className="relative flex h-full w-full justify-center"
               >
                 <LeadershipCard key={index} {...officer} />
               </motion.div>
@@ -44,7 +45,7 @@ export default function BoardPage() {
                 initial={{ x: 75, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 1 }}
-                className="relative h-full w-full max-w-md flex justify-center"
+                className="relative flex h-full w-full max-w-md justify-center"
               >
                 <LeadershipCard key={index} {...advisor} />
               </motion.div>

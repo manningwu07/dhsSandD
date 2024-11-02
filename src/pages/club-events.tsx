@@ -6,20 +6,20 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import content from "../content.json";
+import { PageProps, useContent } from "~/utils/pageUtils";
 
-const clubEventsContent = content.pages.clubEvents;
-
-const events = clubEventsContent.events;
-
-export default function ClubEvents() {
+export default function ClubEventsPage({ content: providedContent }: PageProps) {
+  const content = useContent(providedContent)
+  const clubEventsContent = content.pages.clubEvents;
+  const events = clubEventsContent.events;
+  
   return (
     <div className="min-h-screen overflow-hidden bg-[url('/Background.webp')] bg-cover bg-fixed bg-center text-white">
       <Navbar />
       <div className="px-4 py-12 md:px-8">
-        <h1 className="mb-4 text-center text-3xl font-bold">Club Events</h1>
+        <h1 className="mb-4 text-center text-3xl font-bold">{clubEventsContent.title}</h1>
         <p className="mb-8 text-center text-lg">
-          Dates to put on your calendar:
+          {clubEventsContent.description}
         </p>
 
         <Card className="mx-auto max-w-5xl">
@@ -29,7 +29,7 @@ export default function ClubEvents() {
           <CardContent>
             <div className="relative h-[600px] w-full">
               <iframe
-                src="https://calendar.google.com/calendar/embed?src=your_calendar_id&ctz=America%2FNew_York"
+                src={clubEventsContent.calendarLink || "https://calendar.google.com/calendar/embed?src=your_calendar_id&ctz=America%2FNew_York"}
                 style={{ border: 0 }}
                 className="h-full w-full"
                 allowFullScreen
