@@ -1,10 +1,13 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
-import contentJson from "../../content.json";
 
-export default function Hero() {
-  const content = contentJson.components.hero;
+interface HeroProps{
+  title: string;
+  description: string;
+  buttonLink: string;
+}
 
+export default function Hero({title, description, buttonLink}: HeroProps) {
   return (
     <>
       <motion.h1
@@ -16,7 +19,7 @@ export default function Hero() {
           textShadow: "-2px -2px 2px #CC0033",
         }}
       >
-        <span className="font-cursive italic">{content.title}</span>
+        <span className="font-cursive italic">{title}</span>
       </motion.h1>
 
       <motion.h2
@@ -29,12 +32,12 @@ export default function Hero() {
           textShadow: "-3px -3px 2px #6699CC, -5px -5px 2px #CC0033",
         }}
       >
-        {content.description}
+        {description}
       </motion.h2>
 
       <div className="mt-6 flex items-center justify-center space-x-16">
         <Link
-          href={content.buttonLink}
+          href={buttonLink}
           className="text-center text-2xl font-semibold transition-all duration-200 sm:text-3xl lg:text-4xl"
         >
           <h1 className="rounded-2xl bg-zinc-900 bg-opacity-80 p-2">

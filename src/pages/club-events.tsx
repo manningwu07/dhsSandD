@@ -6,11 +6,28 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { PageProps, useContent } from "~/utils/pageUtils";
+import { DataStructure } from "~/utils/dataStructure";
+import { PageProps, pullContent } from "~/utils/pageUtils";
 
 export default function ClubEventsPage({ content: providedContent }: PageProps) {
-  const content = useContent(providedContent)
-  const clubEventsContent = content.pages.clubEvents;
+  const { content, error } = pullContent("clubEvents", providedContent);
+
+  if (error) {
+    // Display a fallback error message if Firestore fetch fails
+    return (
+      <div className="error-container">
+        <h1>Service Unavailable</h1>
+        <p>We're experiencing issues retrieving content. Please try again later.</p>
+      </div>
+    );
+  }
+
+  if (!content) {
+    // Loading indicator while content is being fetched
+    return <div>Loading...</div>;
+  }
+
+  const clubEventsContent = content.clubEvents as DataStructure["pages"]["clubEvents"];
   const events = clubEventsContent.events;
   
   return (

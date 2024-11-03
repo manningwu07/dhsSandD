@@ -4,20 +4,20 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
-interface CarouselImage {
+export interface CarouselImage {
   src: string;
   alt: string;
   header: string;
   description: string;
 }
 
-interface DescriptionParagraph {
+export interface DescriptionParagraph {
   paragraph: string;
 }
 
 export default function Description({
   images = [],
-  description,
+  description, 
 }: {
   images: CarouselImage[];
   description: DescriptionParagraph[];

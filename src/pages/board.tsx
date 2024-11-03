@@ -2,13 +2,30 @@ import { motion } from "framer-motion";
 import LeadershipCard from "~/components/card/BoardCard";
 import Footer from "~/components/footer";
 import Navbar from "~/components/navbar";
-import { PageProps, useContent } from "~/utils/pageUtils";
+import { DataStructure } from "~/utils/dataStructure";
+import { PageProps, pullContent } from "~/utils/pageUtils";
 
 export default function BoardPage({ content: providedContent }: PageProps) {
-  const content = useContent(providedContent);
-  
-  const officers = content.pages.board.students;
-  const advisors = content.pages.board.parents;
+  const { content, error } = pullContent("board", providedContent);
+
+  if (error) {
+    // Display a fallback error message if Firestore fetch fails
+    return (
+      <div className="error-container">
+        <h1>Service Unavailable</h1>
+        <p>We're experiencing issues retrieving content. Please try again later.</p>
+      </div>
+    );
+  }
+
+  if (!content) {
+    // Loading indicator while content is being fetched
+    return <div>Loading...</div>;
+  }
+
+  const boardContent = content.board as DataStructure["pages"]["board"];
+  const officers = boardContent.students;
+  const advisors = boardContent.parents;
   const cols = advisors.length < 5 ? advisors.length : 4;
   const layoutClass = `grid grid-cols-1 justify-items-center gap-6 md:grid-cols-${cols} lg:grid-cols-${cols} 2xl:grid-cols-${cols}`;
 
@@ -21,7 +38,7 @@ export default function BoardPage({ content: providedContent }: PageProps) {
             2024-2025 OFFICER BOARD
           </h1>
           <div className="grid grid-cols-1 justify-items-center gap-6 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-            {officers.map((officer, index) => (
+            {officers.map((officer: any, index: number) => (
               <motion.div
                 key={index}
                 initial={{ x: 75, opacity: 0 }}
@@ -39,7 +56,7 @@ export default function BoardPage({ content: providedContent }: PageProps) {
             Parent Advisor{advisors.length > 1 && "s"}
           </h2>
           <div className={layoutClass}>
-            {advisors.map((advisor, index) => (
+            {advisors.map((advisor: any, index: number) => (
               <motion.div
                 key={index}
                 initial={{ x: 75, opacity: 0 }}

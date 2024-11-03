@@ -5,7 +5,7 @@ import LandingPage from './LandingPage';
 import AdminAuth from '~/components/admin/adminAuth';
 import AdminInterface from '~/components/admin/adminInterface';
 
-function App() {
+function AdminPage() {
   return (
     <Router>
       <Routes>
@@ -23,4 +23,4 @@ function App() {
   );
 }
 
-export default App;
+export default AdminPage;

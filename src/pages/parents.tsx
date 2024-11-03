@@ -8,7 +8,8 @@ import {
 import Link from "next/link";
 import Footer from "~/components/footer";
 import Navbar from "~/components/navbar";
-import { PageProps, useContent } from "~/utils/pageUtils";
+import { PageProps, pullContent } from "~/utils/pageUtils";
+import { DataStructure } from "~/utils/dataStructure";
 
 function VideoCard({
   src,
@@ -40,8 +41,24 @@ function VideoCard({
 }
 
 export default function ParentsPage({ content: providedContent }: PageProps) {
-  const content = useContent(providedContent)
-  const parentContent = content.pages.parents;
+  const {content, error} = pullContent("parents", providedContent);
+
+  if (error) {
+    // Display a fallback error message if Firestore fetch fails
+    return (
+      <div className="error-container">
+        <h1>Service Unavailable</h1>
+        <p>We're experiencing issues retrieving content. Please try again later.</p>
+      </div>
+    );
+  }
+
+  if (!content) {
+    // Loading indicator while content is being fetched
+    return <div>Loading...</div>;
+  }
+
+  const parentContent = content.parents as DataStructure["pages"]["parents"];
   
   return (
     <div className="min-h-screen overflow-hidden bg-[url('/Background.webp')] bg-cover bg-fixed bg-center text-white">

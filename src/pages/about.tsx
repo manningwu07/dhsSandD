@@ -4,7 +4,7 @@ import Hero from "~/components/sections/Hero";
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent } from "~/components/ui/card";
-import { PageProps, useContent } from "~/utils/pageUtils";
+import { PageProps, pullContent } from "~/utils/pageUtils";
 
 function ActionButton({ link, text }: { link: string; text: string }) {
   return (
@@ -15,29 +15,48 @@ function ActionButton({ link, text }: { link: string; text: string }) {
 }
 
 export default function AboutPage({ content: providedContent }: PageProps) {
-  const content = useContent(providedContent)
-  const aboutContent = content.pages.about;
+  const { content, error } = pullContent("about", providedContent);
+
+  if (error) {
+    // Display a fallback error message if Firestore fetch fails
+    return (
+      <div className="error-container">
+        <h1>Service Unavailable</h1>
+        <p>We're experiencing issues retrieving content. Please try again later.</p>
+      </div>
+    );
+  }
+
+  if (!content) {
+    // Loading indicator while content is being fetched
+    return <div>Loading...</div>;
+  }
+  
+  const aboutContent = content.about;
+  console.log("aboutContent", aboutContent);
 
   return (
     <div className="min-h-screen overflow-hidden bg-[url('/Background.webp')] bg-cover bg-fixed bg-center text-white">
       <Navbar />
-      <Hero />
+      {content.components?.hero && (
+        <Hero title={content.components.hero.title} description={content.components.hero.description} buttonLink={content.components.hero.buttonLink} />
+      )}
 
       <div className="container mx-auto flex flex-col-reverse items-center space-y-6 p-6 md:flex-row md:space-x-8 md:space-y-0">
         {/* Text Content */}
         <div className="flex flex-col items-center justify-center p-2 text-center text-white md:p-3 md:text-left lg:p-4 2xl:p-5">
           <h1 className="mb-4 text-xl font-bold md:text-2xl lg:text-3xl">
-            {aboutContent.introdution.title}
+            {aboutContent.introduction.title}
           </h1>
           <p className="leading-relaxed md:text-xl">
-            {aboutContent.introdution.description}
+            {aboutContent.introduction.description}
           </p>
         </div>
 
         {/* Image */}
         <div className="relative aspect-[3/2] w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
           <Image
-            src={aboutContent.introdution.imageSrc || "/placeholder.svg"}
+            src={aboutContent.introduction.imageSrc || "/placeholder.svg"}
             alt="about"
             fill
             className="rounded-lg object-cover shadow-lg"

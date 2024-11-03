@@ -14,7 +14,6 @@ const AdminAuth = ({ children }: { children: React.ReactNode }) => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const isAdmin = await checkIfAdmin(user.email || ''); // Pass user.email
-        console.log("isAdmin:", isAdmin);
         if (isAdmin) {
           setIsAdmin(true);
         } else {

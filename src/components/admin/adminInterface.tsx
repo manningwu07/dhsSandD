@@ -20,7 +20,6 @@ import {
   DialogTrigger,
 } from "~/components/ui/dialog";
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
-import content from "~/content.json";
 import LandingPage from "~/pages/LandingPage";
 import AboutPage from "~/pages/about";
 import BoardPage from "~/pages/board";
@@ -29,14 +28,32 @@ import TournamentPage from "~/pages/tournament";
 import ClubEventsPage from "~/pages/club-events";
 import { db } from "~/lib/firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import { fetchFullContent, PullContentResult } from "~/utils/pageUtils";
+import { DataStructure, transformFullContent } from "~/utils/dataStructure";
 
 export default function AdminInterface() {
-  const [data, setData] = useState(content);
+  const [data, setData] = useState<DataStructure | null>(null);
   const [activePage, setActivePage] = useState("landing");
   const [sliderPosition, setSliderPosition] = useState(33);
   const [isDragging, setIsDragging] = useState(false);
   const [isDeploying, setIsDeploying] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  useEffect(() => {
+    async function loadFullContent() {
+      const fullContent = await fetchFullContent();
+      if (fullContent) {
+        const formattedData: DataStructure = transformFullContent(fullContent);
+        setData(formattedData as DataStructure);
+        console.log("formattedData", formattedData);
+        console.log("data", data);
+      } else {
+        console.error("Failed to load content for admin interface.");
+      }
+    }
+
+    loadFullContent();
+  }, []);
 
   const createLabel = (path: string) => {
     return path
@@ -181,25 +198,76 @@ export default function AdminInterface() {
     );
   };
 
+  
   const renderPreview = () => {
+    if (!data) {
+      return <div>Loading...</div>;
+    }
+  
     switch (activePage) {
       case "landing":
-        return <LandingPage content={data} />;
+        return (
+          <LandingPage
+            content={{
+              landing: data.pages.landing,
+              components: data.components
+            } as PullContentResult<"landing">}
+          />
+        );
       case "about":
-        return <AboutPage content={data} />;
+        return (
+          <AboutPage
+            content={{
+              about: data.pages.about,
+              components: data.components
+            } as PullContentResult<"about">}
+          />
+        );
       case "board":
-        return <BoardPage content={data} />;
+        return (
+          <BoardPage
+            content={{
+              board: data.pages.board
+            } as PullContentResult<"board">}
+          />
+        );
       case "clubEvents":
-        return <ClubEventsPage content={data} />;
+        return (
+          <ClubEventsPage
+            content={{
+              clubEvents: data.pages.clubEvents
+            } as PullContentResult<"clubEvents">}
+          />
+        );
       case "parents":
-        return <ParentsPage content={data} />;
+        return (
+          <ParentsPage
+            content={{
+              parents: data.pages.parents
+            } as PullContentResult<"parents">}
+          />
+        );
       case "tournament":
-        return <TournamentPage content={data} />;
+        return (
+          <TournamentPage
+            content={{
+              tournament: data.pages.tournament,
+              components: data.components
+            } as PullContentResult<"tournament">}
+          />
+        );
       default:
-        return <LandingPage content={data} />;
+        return (
+          <LandingPage
+            content={{
+              landing: data.pages.landing,
+              components: data.components
+            } as PullContentResult<"landing">}
+          />
+        );
     }
   };
-
+  
   const handleMouseDown = useCallback(() => {
     setIsDragging(true);
   }, []);
@@ -234,7 +302,7 @@ export default function AdminInterface() {
       const docRef = doc(db, "dhsSpeechAndDebate", "content");
       const docSnapshot = await getDoc(docRef);
 
-      if (docSnapshot.exists()) {
+      if (docSnapshot.exists() && data) {
         // Update the document if it exists
         await setDoc(docRef, {
           components: data.components,
@@ -260,6 +328,11 @@ export default function AdminInterface() {
     }
   };
 
+  // Display a loading indicator until `data` is available
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="flex h-screen flex-col bg-gray-50">
       <div className="border-b p-4">
@@ -271,7 +344,7 @@ export default function AdminInterface() {
               onClick={() => setIsDialogOpen(true)}
             >
               <Upload className="mr-2 h-4 w-4" />
-              {isDeploying ? "Deploying..." : "Deploy to Firebase"}
+              {isDeploying ? "Deploying..." : "Deploy Website"}
             </Button>
           </DialogTrigger>
           <DialogContent className="bg-gray-50">
@@ -325,11 +398,11 @@ export default function AdminInterface() {
                 ))}
               </div>
             </ScrollArea>
-            {renderEditField(
+            {data && renderEditField(
               `pages.${activePage}`,
               data.pages[activePage as keyof typeof data.pages],
             )}
-            {renderEditField("components", data.components)}
+            {renderEditField("components", data!.components)}
           </div>
         </ScrollArea>
 

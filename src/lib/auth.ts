@@ -9,7 +9,6 @@ const db = getFirestore();
 export const signInWithGoogle = async (): Promise<UserCredential | void> => {
   try {
     const result = await signInWithPopup(auth, googleProvider);
-    console.log("User signed in:", result.user);
     return result;
   } catch (error) {
     console.error("Error signing in with Google:", error);
@@ -22,11 +21,8 @@ export const checkIfAdmin = async (userEmail: string) => {
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-    console.log("DocSnap:", docSnap.data());
     const adminEmails = docSnap.data()?.admin || [];
     const ownerEmail = docSnap.data()?.owner;
-    console.log("adminEmails", adminEmails);
-    console.log("userEmail", userEmail);
     return adminEmails.includes(userEmail) || ownerEmail === userEmail;
   }
   return false;

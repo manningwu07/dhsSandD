@@ -13,17 +13,37 @@ import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { Alert, AlertTitle, AlertDescription } from "~/components/ui/alert";
-import { PageProps, useContent } from "~/utils/pageUtils";
+import { PageProps, pullContent } from "~/utils/pageUtils";
+import { DataStructure } from "~/utils/dataStructure";
 
 export default function TournamentPage({ content: providedContent }: PageProps) {
-  const content = useContent(providedContent);
-  const tournamentContent = content.pages.tournament;
   const [showSpreadsheetInfo, setShowSpreadsheetInfo] = useState(true);
+  
+  const {content, error} = pullContent("tournament", providedContent);
+
+  if (error) {
+    // Display a fallback error message if Firestore fetch fails
+    return (
+      <div className="error-container">
+        <h1>Service Unavailable</h1>
+        <p>We're experiencing issues retrieving content. Please try again later.</p>
+      </div>
+    );
+  }
+
+  if (!content) {
+    // Loading indicator while content is being fetched
+    return <div>Loading...</div>;
+  }
+
+  const tournamentContent = content.tournament as DataStructure["pages"]["tournament"];
 
   return (
     <div className="min-h-screen overflow-hidden bg-[url('/Background.webp')] bg-cover bg-fixed bg-center text-white">
       <Navbar />
-      <Hero />
+      {content.components?.hero && (
+        <Hero title={content.components.hero.title} description={content.components.hero.description} buttonLink={content.components.hero.buttonLink} />
+      )}
       <div className="container mx-auto flex flex-col p-8">
         <h1 className="mb-8 text-center text-4xl font-bold">
           How to SIGN UP for a Tournament
