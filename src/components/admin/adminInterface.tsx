@@ -27,7 +27,7 @@ import ParentsPage from "~/pages/parents";
 import TournamentPage from "~/pages/tournament";
 import ClubEventsPage from "~/pages/club-events";
 import { db } from "~/lib/firebase";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { arrayRemove, arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { fetchFullContent, PullContentResult } from "~/utils/pageUtils";
 import { DataStructure, transformFullContent } from "~/utils/dataStructure";
 import { ImageUpload } from "./imageUpload";
@@ -40,6 +40,9 @@ export default function AdminInterface() {
   const [isDragging, setIsDragging] = useState(false);
   const [isDeploying, setIsDeploying] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isEmailDialogOpen, setIsEmailDialogOpen] = useState(false);
+  const [emails, setEmails] = useState<string[]>([]);
+  const [emailInput, setEmailInput] = useState("");
 
   useEffect(() => {
     async function loadFullContent() {
@@ -58,6 +61,42 @@ export default function AdminInterface() {
 
     loadFullContent();
   }, []);
+
+  useEffect(() => {
+    fetchEmails();
+  }, []);
+  
+
+  // Fetch emails from Firestore
+  const fetchEmails = async () => {
+    const docRef = doc(db, "dhsSpeechAndDebate", "authorizedUsers");
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      setEmails(data.admin || []);
+    }
+  };
+
+  // Add email to Firestore
+  const addEmail = async () => {
+    if (emailInput && !emails.includes(emailInput)) {
+      const docRef = doc(db, "dhsSpeechAndDebate", "authorizedUsers");
+      await updateDoc(docRef, {
+        admin: arrayUnion(emailInput),
+      });
+      setEmails([...emails, emailInput]);
+      setEmailInput("");
+    }
+  };
+
+  // Remove email from Firestore
+  const removeEmail = async (email: string) => {
+    const docRef = doc(db, "dhsSpeechAndDebate", "authorizedUsers");
+    await updateDoc(docRef, {
+      admin: arrayRemove(email),
+    });
+    setEmails(emails.filter((e) => e !== email));
+  };
 
   const createLabel = (path: string) => {
     return path
@@ -388,8 +427,8 @@ export default function AdminInterface() {
 
   return (
     <div className="flex h-screen flex-col bg-gray-50">
-      <div className="border-b p-4">
-        {/* Deploy Website sign */}
+      <div className="border-b p-4 flex justify-between items-center">
+        {/* Deploy Website button */}
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button
@@ -421,6 +460,52 @@ export default function AdminInterface() {
                 Cancel
               </Button>
               <Button onClick={deployToFirebase}>Deploy</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Manage Emails button */}
+        <Dialog open={isEmailDialogOpen} onOpenChange={setIsEmailDialogOpen}>
+          <DialogTrigger asChild>
+            <Button variant="outline" className="ml-4" onClick={() => setIsEmailDialogOpen(true)}>
+              Manage Admin Emails
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="bg-gray-50">
+            <DialogHeader>
+              <DialogTitle>Manage Admin Emails</DialogTitle>
+              <DialogDescription>
+                Add or remove admin email addresses authorized to access this interface.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <input
+                  type="email"
+                  value={emailInput}
+                  onChange={(e) => setEmailInput(e.target.value)}
+                  placeholder="Enter email address"
+                  className="border rounded p-2 w-full"
+                />
+                <Button onClick={addEmail} disabled={!emailInput}>
+                  Add
+                </Button>
+              </div>
+              <ul className="list-disc pl-5 space-y-2">
+                {emails.map((email) => (
+                  <li key={email} className="flex justify-between items-center">
+                    <span>{email}</span>
+                    <Button variant="destructive" size="sm" onClick={() => removeEmail(email)}>
+                      <Trash2 className="h-4 w-4" /> Remove
+                    </Button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setIsEmailDialogOpen(false)}>
+                Close
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
