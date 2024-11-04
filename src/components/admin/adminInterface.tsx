@@ -20,7 +20,7 @@ import {
   DialogTrigger,
 } from "~/components/ui/dialog";
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
-import LandingPage from "~/pages/LandingPage";
+import LandingPage from "~/pages/LandingPage";  
 import AboutPage from "~/pages/about";
 import BoardPage from "~/pages/board";
 import ParentsPage from "~/pages/parents";
@@ -30,6 +30,8 @@ import { db } from "~/lib/firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { fetchFullContent, PullContentResult } from "~/utils/pageUtils";
 import { DataStructure, transformFullContent } from "~/utils/dataStructure";
+import { ImageUpload } from "./imageUpload";
+// import content from "~/content.json";
 
 export default function AdminInterface() {
   const [data, setData] = useState<DataStructure | null>(null);
@@ -45,8 +47,10 @@ export default function AdminInterface() {
       if (fullContent) {
         const formattedData: DataStructure = transformFullContent(fullContent);
         setData(formattedData as DataStructure);
-        console.log("formattedData", formattedData);
-        console.log("data", data);
+        // If you need to manually set the data, uncomment the following line and import content.json
+        // This should only be hard reset + changing structure of website
+        // setData(content as DataStructure);
+
       } else {
         console.error("Failed to load content for admin interface.");
       }
@@ -103,6 +107,16 @@ export default function AdminInterface() {
   };
 
   const renderEditField = (path: string, value: any, depth = 0) => {
+    if (typeof value === "string" && isImageField(path)) {
+      return (
+        <ImageUpload
+          currentSrc={value}
+          onUpload={(url) => handleEdit(path, url)}
+          path={path}
+        />
+      );
+    }
+
     if (Array.isArray(value)) {
       return (
         <div className="mb-8 space-y-4">
@@ -198,76 +212,89 @@ export default function AdminInterface() {
     );
   };
 
-  
   const renderPreview = () => {
     if (!data) {
       return <div>Loading...</div>;
     }
-  
+
     switch (activePage) {
       case "landing":
         return (
           <LandingPage
-            content={{
-              landing: data.pages.landing,
-              components: data.components
-            } as PullContentResult<"landing">}
+            content={
+              {
+                landing: data.pages.landing,
+                components: data.components,
+              } as PullContentResult<"landing">
+            }
           />
         );
       case "about":
         return (
           <AboutPage
-            content={{
-              about: data.pages.about,
-              components: data.components
-            } as PullContentResult<"about">}
+            content={
+              {
+                about: data.pages.about,
+                components: data.components,
+              } as PullContentResult<"about">
+            }
           />
         );
       case "board":
         return (
           <BoardPage
-            content={{
-              board: data.pages.board
-            } as PullContentResult<"board">}
+            content={
+              {
+                board: data.pages.board,
+              } as PullContentResult<"board">
+            }
           />
         );
       case "clubEvents":
         return (
           <ClubEventsPage
-            content={{
-              clubEvents: data.pages.clubEvents
-            } as PullContentResult<"clubEvents">}
+            content={
+              {
+                clubEvents: data.pages.clubEvents,
+              } as PullContentResult<"clubEvents">
+            }
           />
         );
       case "parents":
         return (
           <ParentsPage
-            content={{
-              parents: data.pages.parents
-            } as PullContentResult<"parents">}
+            content={
+              {
+                parents: data.pages.parents,
+              } as PullContentResult<"parents">
+            }
           />
         );
       case "tournament":
         return (
           <TournamentPage
-            content={{
-              tournament: data.pages.tournament,
-              components: data.components
-            } as PullContentResult<"tournament">}
+            content={
+              {
+                tournament: data.pages.tournament,
+                components: data.components,
+              } as PullContentResult<"tournament">
+            }
           />
         );
       default:
         return (
           <LandingPage
-            content={{
-              landing: data.pages.landing,
-              components: data.components
-            } as PullContentResult<"landing">}
+            content={
+              {
+                landing: data.pages.landing,
+                components: data.components,
+              } as PullContentResult<"landing">
+            }
           />
         );
     }
   };
-  
+
   const handleMouseDown = useCallback(() => {
     setIsDragging(true);
   }, []);
@@ -304,15 +331,19 @@ export default function AdminInterface() {
 
       if (docSnapshot.exists() && data) {
         // Update the document if it exists
-        await setDoc(docRef, {
-          components: data.components,
-          landing: data.pages.landing,
-          about: data.pages.about,
-          board: data.pages.board,
-          clubEvents: data.pages.clubEvents,
-          parents: data.pages.parents,
-          tournament: data.pages.tournament,
-        }, { merge: true }); // Merge to avoid overwriting fields
+        await setDoc(
+          docRef,
+          {
+            components: data.components,
+            landing: data.pages.landing,
+            about: data.pages.about,
+            board: data.pages.board,
+            clubEvents: data.pages.clubEvents,
+            parents: data.pages.parents,
+            tournament: data.pages.tournament,
+          },
+          { merge: true },
+        ); // Merge to avoid overwriting fields
       } else {
         // Create a new document if it doesn't exist
         await setDoc(docRef, data);
@@ -398,10 +429,11 @@ export default function AdminInterface() {
                 ))}
               </div>
             </ScrollArea>
-            {data && renderEditField(
-              `pages.${activePage}`,
-              data.pages[activePage as keyof typeof data.pages],
-            )}
+            {data &&
+              renderEditField(
+                `pages.${activePage}`,
+                data.pages[activePage as keyof typeof data.pages],
+              )}
             {renderEditField("components", data!.components)}
           </div>
         </ScrollArea>
@@ -418,3 +450,9 @@ export default function AdminInterface() {
     </div>
   );
 }
+
+const isImageField = (fieldPath: string) => {
+  const pathParts = fieldPath.split('.');
+  const lastPart = pathParts[pathParts.length - 1]!.toLowerCase();
+  return lastPart === 'src' || lastPart === 'imagesrc';
+};

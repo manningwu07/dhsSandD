@@ -48,6 +48,19 @@ async function cacheData(field: string, data: any) {
   await db.put("pages", { key: field, data, timestamp: Date.now() });
 }
 
+function hasCircularReference(obj: any, seen = new Set()) {
+  if (obj && typeof obj === "object") {
+    if (seen.has(obj)) return true;
+    seen.add(obj);
+    for (let key in obj) {
+      if (hasCircularReference(obj[key], seen)) return true;
+    }
+    seen.delete(obj);
+  }
+  return false;
+}
+
+
 // Function to fetch the entire content document from Firestore (for Admin Interface)
 export async function fetchFullContent() {
   try {
@@ -73,46 +86,54 @@ export function pullContent<T extends keyof DataStructure["pages"] | "components
   field: T,
   providedContent?: PullContentResult<T>
 ) {
-  // Set the state type based on the generic type `T`
   const [content, setContent] = useState<PullContentResult<T> | undefined>(providedContent);
   const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
     async function loadContent() {
-      // Admin usage
       if (providedContent) {
         setContent(providedContent);
         return;
       }
 
-      // Cached usage
       const cachedData = await getCachedData(field);
       if (cachedData) {
+        // Check for circular reference in cached data
+        if (hasCircularReference(cachedData)) {
+          console.error("Circular reference detected in cached data:", cachedData);
+          setError(true);
+          return;
+        }
         setContent(cachedData as PullContentResult<T>);
       } else {
-        // Pull from Firebase
         const docRef = doc(db, "dhsSpeechAndDebate", "content");
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
           const data = docSnap.data();
-          console.log("data", data);
-          if(field === "all") {
+
+          if (field === "all") {
             setContent(data as PullContentResult<T>);
             return;
           }
 
           let result: Partial<PullContentResult<T>> = {};
-
           if (field in data) {
             result = { ...result, [field]: data[field] } as PullContentResult<T>;
           }
-
           if ((field === "landing" || field === "about" || field === "tournament") && "components" in data) {
             result = { ...result, components: data["components"] } as PullContentResult<T>;
           }
 
-          await cacheData(field, result);
+          // Check for circular reference in result before caching
+          if (hasCircularReference(result)) {
+            console.error("Circular reference detected in result before caching:", result);
+            setError(true);
+            return;
+          }
+
+          // Cache a deep-cloned result to avoid circular references
+          await cacheData(field, JSON.parse(JSON.stringify(result)));
           setContent(result as PullContentResult<T>);
         } else {
           setError(true);

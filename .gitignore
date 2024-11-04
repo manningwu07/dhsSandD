@@ -44,3 +44,7 @@ yarn-error.log*
 
 # idea files
 .idea
+
+# Data Structure
+/src/content.json
+/src/utils/dataStructure.ts

@@ -180,9 +180,15 @@
             {
               "trigger": "What information to provide?",
               "content": [
-                "If you can provide a judge + their Tabroom account email",
-                "Event and division you wish to enter in",
-                "Your Tabroom account email"
+                {
+                  "paragraph": "If you can provide a judge + their Tabroom account email"
+                },
+                {
+                  "paragraph": "Event and division you wish to enter in"
+                },
+                {
+                  "paragraph": "Your Tabroom account email"
+                }
               ]
             }
           ]
@@ -198,10 +204,18 @@
             {
               "trigger": "Step 2: Message a Board Member",
               "content": [
-                "Directly message a Board Member on Discord with the following info:",
-                "If you can provide a judge + their Tabroom account email",
-                "Event and division you wish to enter in",
-                "Your Tabroom account email"
+                {
+                  "paragraph": "Directly message a Board Member on Discord with the following info:"
+                },
+                {
+                  "paragraph": "If you can provide a judge + their Tabroom account email"
+                },
+                {
+                  "paragraph": "Event and division you wish to enter in"
+                },
+                {
+                  "paragraph": "Your Tabroom account email"
+                }
               ]
             }
           ]
@@ -209,17 +223,34 @@
       ],
       "calendarLink": "https://calendar.google.com/calendar/embed?src=your_calendar_id&ctz=America%2FNew_York",
       "formsToComplete": [
-        "Tournament Registration Form",
-        "Parental Consent Form",
-        "Medical Information Form",
-        "Code of Conduct Agreement"
+        {
+          "paragraph": "Tournament Registration Form"
+        },
+        {
+          "paragraph": "Parental Consent Form"
+        },
+        {
+          "paragraph": "Medical Information Form"
+        },{
+          "paragraph": "Code of Conduct Agreement"
+        }
       ],
       "eligibilityRules": [
-        "Must be an active member of Dublin High Speech and Debate.",
-        "Maintain a GPA of 2.5 or higher.",
-        "Attend at least 80% of team practices.",
-        "Complete all required forms by the specified deadlines.",
-        "Adhere to the team's code of conduct."
+        {
+          "paragraph": "Must be an active member of Dublin High Speech and Debate."
+        },
+        {
+          "paragraph": "Maintain a GPA of 2.5 or higher."
+        },
+        {
+          "paragraph": "Attend at least 80% of team practices."
+        },
+        {
+          "paragraph": "Complete all required forms by the specified deadlines."
+        },
+        {
+          "paragraph": "Adhere to the team's code of conduct."
+        }
       ],
       "submissionDetails": {
         "email": "dublinhighspeechanddebate@gmail.com",
@@ -235,39 +266,57 @@
           {
             "title": "Preparing for Your First Tournament",
             "description": [
-              "Familiarize yourself with the event rules",
-              "Review judging criteria and scoring guidelines",
-              "Arrive early to the tournament for orientation",
-              "Bring necessary materials (pen, paper, timer)"
+              {
+                "paragraph": "Familiarize yourself with the event rules"
+              },
+              {
+                "paragraph": "Review judging criteria and scoring guidelines"
+              },
+              {
+                "paragraph": "Arrive early to the tournament for orientation"
+              },
+              {
+                "paragraph": "Bring necessary materials (pen, paper, timer)"
+              }
             ]
           },
           {
             "title": "During the Round",
             "description": [
-              "Maintain a neutral expression",
-              "Take detailed notes",
-              "Time the speeches accurately",
-              "Focus on content, delivery, and organization"
+              {
+                "paragraph": "Maintain a neutral expression"
+              },{
+                "paragraph": "Take detailed notes"
+              },{
+                "paragraph": "Time the speeches accurately"
+              },{
+                "paragraph": "Focus on content, delivery, and organization"
+              }
             ]
           },
           {
             "title": "After the Round",
             "description": [
-              "Complete the ballot thoroughly",
-              "Provide constructive feedback",
-              "Submit your decision promptly",
-              "Maintain confidentiality about results"
+              {
+                "paragraph": "Complete the ballot thoroughly"
+              },{
+                "paragraph": "Provide constructive feedback"
+              },{
+                "paragraph": "Submit your decision promptly"
+              },{
+                "paragraph": "Maintain confidentiality about results"
+              }
             ]
           }
         ]
       },
       "videoOne": {
-        "src": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        "link": "https://www.youtube.com/embed/dQw4w9WgXcQ",
         "title": "Introduction to Judging",
         "description": "This video provides an overview of what to expect as a judge in speech and debate tournaments."
       },
       "videoTwo": {
-        "src": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        "link": "https://www.youtube.com/embed/dQw4w9WgXcQ",
         "title": "Detailed Judging Process",
         "description": "This video goes into the specifics of how to judge different events and fill out ballots."
       },

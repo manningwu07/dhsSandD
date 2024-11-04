@@ -15,18 +15,23 @@ import { Label } from "~/components/ui/label";
 import { Alert, AlertTitle, AlertDescription } from "~/components/ui/alert";
 import { PageProps, pullContent } from "~/utils/pageUtils";
 import { DataStructure } from "~/utils/dataStructure";
+import Footer from "~/components/footer";
 
-export default function TournamentPage({ content: providedContent }: PageProps) {
+export default function TournamentPage({
+  content: providedContent,
+}: PageProps) {
   const [showSpreadsheetInfo, setShowSpreadsheetInfo] = useState(true);
-  
-  const {content, error} = pullContent("tournament", providedContent);
+
+  const { content, error } = pullContent("tournament", providedContent);
 
   if (error) {
     // Display a fallback error message if Firestore fetch fails
     return (
       <div className="error-container">
         <h1>Service Unavailable</h1>
-        <p>We're experiencing issues retrieving content. Please try again later.</p>
+        <p>
+          We're experiencing issues retrieving content. Please try again later.
+        </p>
       </div>
     );
   }
@@ -36,13 +41,19 @@ export default function TournamentPage({ content: providedContent }: PageProps) 
     return <div>Loading...</div>;
   }
 
-  const tournamentContent = content.tournament as DataStructure["pages"]["tournament"];
+  const tournamentContent =
+    content.tournament as DataStructure["pages"]["tournament"];
+  console.log("tournamentContent", tournamentContent);
 
   return (
     <div className="min-h-screen overflow-hidden bg-[url('/Background.webp')] bg-cover bg-fixed bg-center text-white">
       <Navbar />
       {content.components?.hero && (
-        <Hero title={content.components.hero.title} description={content.components.hero.description} buttonLink={content.components.hero.buttonLink} />
+        <Hero
+          title={content.components.hero.title}
+          description={content.components.hero.description}
+          buttonLink={content.components.hero.buttonLink}
+        />
       )}
       <div className="container mx-auto flex flex-col p-8">
         <h1 className="mb-8 text-center text-4xl font-bold">
@@ -51,7 +62,10 @@ export default function TournamentPage({ content: providedContent }: PageProps) 
 
         <div className="grid gap-8 md:grid-cols-2">
           {tournamentContent.signUpInstructions.map((method, index) => (
-            <Card key={index} className="rounded-xl bg-zinc-800 bg-opacity-80 p-2">
+            <Card
+              key={index}
+              className="rounded-xl bg-zinc-800 bg-opacity-80 p-2"
+            >
               <CardHeader>
                 <CardTitle>{method.title}</CardTitle>
                 <p>{method.description}</p>
@@ -65,7 +79,7 @@ export default function TournamentPage({ content: providedContent }: PageProps) 
                         {Array.isArray(item.content) ? (
                           <ul className="list-disc space-y-2 pl-5">
                             {item.content.map((contentItem, idx) => (
-                              <li key={idx}>{contentItem}</li>
+                              <li key={idx}>{contentItem.paragraph}</li>
                             ))}
                           </ul>
                         ) : (
@@ -84,8 +98,8 @@ export default function TournamentPage({ content: providedContent }: PageProps) 
           <InfoIcon className="h-4 w-4" />
           <AlertTitle>Important Note</AlertTitle>
           <AlertDescription>
-            MOST UPDATED SIGN-UPS FOR EACH TOURNAMENT + FEE STATUS IS LISTED
-            ON THE SIGN-UPS TAB OF THE SPREADSHEET BELOW!
+            MOST UPDATED SIGN-UPS FOR EACH TOURNAMENT + FEE STATUS IS LISTED ON
+            THE SIGN-UPS TAB OF THE SPREADSHEET BELOW!
           </AlertDescription>
         </Alert>
 
@@ -95,7 +109,9 @@ export default function TournamentPage({ content: providedContent }: PageProps) 
             className="rounded-xl bg-zinc-800 bg-opacity-80 p-2"
             onClick={() => setShowSpreadsheetInfo(!showSpreadsheetInfo)}
           >
-            {showSpreadsheetInfo ? "Hide Spreadsheet Info" : "Show Spreadsheet Info"}
+            {showSpreadsheetInfo
+              ? "Hide Spreadsheet Info"
+              : "Show Spreadsheet Info"}
           </Button>
           {showSpreadsheetInfo && (
             <Card className="mt-4">
@@ -113,7 +129,7 @@ export default function TournamentPage({ content: providedContent }: PageProps) 
           )}
         </div>
 
-        <div className="mb-8 grid grid-cols-1 gap-8 md:grid-cols-2">
+        <div className="my-8 grid grid-cols-1 gap-8 md:grid-cols-2">
           <Card className="bg-zinc-800 bg-opacity-80">
             <CardHeader>
               <CardTitle>Forms to Complete</CardTitle>
@@ -121,7 +137,7 @@ export default function TournamentPage({ content: providedContent }: PageProps) 
             <CardContent>
               <ul className="list-disc space-y-2 pl-5">
                 {tournamentContent.formsToComplete.map((form, index) => (
-                  <li key={index}>{form}</li>
+                  <li key={index}>{form.paragraph}</li>
                 ))}
               </ul>
             </CardContent>
@@ -134,7 +150,7 @@ export default function TournamentPage({ content: providedContent }: PageProps) 
             <CardContent>
               <ol className="list-decimal space-y-2 pl-5">
                 {tournamentContent.eligibilityRules.map((rule, index) => (
-                  <li key={index}>{rule}</li>
+                  <li key={index}>{rule.paragraph}</li>
                 ))}
               </ol>
             </CardContent>
@@ -156,11 +172,14 @@ export default function TournamentPage({ content: providedContent }: PageProps) 
               />
             </div>
             <p className="mt-4">
-              Or deliver physical copies to {tournamentContent.submissionDetails.physicalSubmission}.
+              Or deliver physical copies to{" "}
+              {tournamentContent.submissionDetails.physicalSubmission}.
             </p>
           </CardContent>
         </Card>
       </div>
+
+      <Footer />
     </div>
   );
 }

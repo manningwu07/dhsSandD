@@ -24,11 +24,6 @@
         {
           "href": "/parents",
           "label": "Parents"
-        },
-        {
-          "href": "/join",
-          "label": "Join",
-          "className": "  border-yellow-400 text-yellow-400 hover:border-yellow-500 hover:text-yellow-500"
         }
       ],
       "socialLinks": [

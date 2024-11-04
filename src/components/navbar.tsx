@@ -5,20 +5,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { X, Menu } from "lucide-react";
-import content from "../content.json";
 import navLinks from "../navLinks.json";
 
-const joinLink = content.components.hero.buttonLink;
 const navItems = navLinks.nav.navItems;
 const socialLinks = navLinks.nav.socialLinks;
 
-// Find the index of the item with label "Join"
-const joinIndex = navItems.findIndex((item) => item.label === "Join");
-
-// Set href to joinLink if "Join" item exists
-if (joinIndex !== -1) {
-  navItems[joinIndex]!.href = joinLink;
-}
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -49,7 +40,6 @@ export default function Navbar() {
             <NavLink
               key={item.href}
               href={item.href}
-              className={item.className}
             >
               {item.label}
             </NavLink>
@@ -87,7 +77,7 @@ export default function Navbar() {
         >
           <div className="container mx-auto px-6 py-4 flex flex-col">
             {navItems.map((item) => (
-              <NavLink key={item.href} href={item.href} className={`${item.className} my-1`} onClick={toggleMenu}>
+              <NavLink key={item.href} href={item.href} className='my-1' onClick={toggleMenu}>
                 {item.label}
               </NavLink>
             ))}

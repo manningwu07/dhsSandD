@@ -12,11 +12,11 @@ import { PageProps, pullContent } from "~/utils/pageUtils";
 import { DataStructure } from "~/utils/dataStructure";
 
 function VideoCard({
-  src,
+  link,
   title,
   description,
 }: {
-  src: string;
+  link: string;
   title: string;
   description: string;
 }) {
@@ -29,7 +29,7 @@ function VideoCard({
         <p className="mb-4">{description}</p>
         <div className="aspect-w-16 aspect-h-9 h-[350px] w-full md:h-[600px]">
           <iframe
-            src={src}
+            src={link}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             className="h-full w-full"
@@ -70,7 +70,7 @@ export default function ParentsPage({ content: providedContent }: PageProps) {
 
         <div className="space-y-8">
           <VideoCard
-            src={parentContent.videoOne.src}
+            link={parentContent.videoOne.link}
             title={parentContent.videoOne.title}
             description={parentContent.videoOne.description}
           />
@@ -89,7 +89,7 @@ export default function ParentsPage({ content: providedContent }: PageProps) {
                     </AccordionTrigger>
                     <AccordionContent className="lg:text-lg">
                       {section.description.map((item, itemIndex) => (
-                        <li key={itemIndex}>{item}</li>
+                        <li key={itemIndex}>{item.paragraph}</li>
                       ))}
                     </AccordionContent>
                   </AccordionItem>
@@ -98,7 +98,7 @@ export default function ParentsPage({ content: providedContent }: PageProps) {
             </CardContent>
           </Card>
           <VideoCard
-            src={parentContent.videoTwo.src}
+            link={parentContent.videoTwo.link}
             title={parentContent.videoTwo.title}
             description={parentContent.videoTwo.description}
           />

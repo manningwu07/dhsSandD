@@ -33,7 +33,6 @@ export default function AboutPage({ content: providedContent }: PageProps) {
   }
   
   const aboutContent = content.about;
-  console.log("aboutContent", aboutContent);
 
   return (
     <div className="min-h-screen overflow-hidden bg-[url('/Background.webp')] bg-cover bg-fixed bg-center text-white">

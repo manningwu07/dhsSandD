@@ -58,7 +58,7 @@ export default function Description({
               key={index}
               src={image.src || "/placeholder.svg"}
               alt={image.alt}
-              layout="fill"
+              fill
               objectFit="cover"
               className={`absolute left-0 top-0 transition-transform duration-500 ease-in-out ${
                 index === currentIndex
@@ -71,7 +71,7 @@ export default function Description({
           ))}
         </div>
         <div
-          className={`text-whitetransition-all absolute bottom-4 left-4 max-w-[calc(100%-2rem)] rounded bg-black bg-opacity-50 p-4 duration-500 ${isHovered ? "opacity-100" : "opacity-0"}`}
+          className={`text-white transition-all absolute bottom-4 left-4 max-w-[calc(100%-2rem)] rounded bg-black bg-opacity-50 p-4 duration-500 ${isHovered ? "opacity-100" : "opacity-0"}`}
         >
           <h3 className="truncate text-lg font-bold">
             {images[currentIndex]!.header}

@@ -19,7 +19,7 @@ export default function LeadershipCard({
         <Image
           src={imageSrc || "/placeholder.svg"}
           alt={`${name} - ${position}`}
-          layout="fill"
+          fill
           objectFit="cover"
           className="rounded-lg shadow-lg"
         />
