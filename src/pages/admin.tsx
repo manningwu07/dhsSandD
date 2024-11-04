@@ -2,8 +2,8 @@
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LandingPage from './LandingPage';
-import AdminAuth from '~/components/admin/adminAuth';
-import AdminInterface from '~/components/admin/adminInterface';
+import AdminAuth from '~/admin/adminAuth';
+import AdminInterface from '~/admin/adminInterface';
 
 function AdminPage() {
   return (
