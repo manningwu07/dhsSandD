@@ -26,10 +26,11 @@ export function DeployDialog({ isOpen, setIsOpen, isDeploying, setIsDeploying, d
   const deployToFirebase = async () => {
     setIsDeploying(true);
     try {
-      const docRef = doc(db, 'dhsSpeechAndDebate', 'content');
+      const docRef = doc(db, 'dhsSpeechAndDebate', 'content'); // Change this to your Firestore collection name
       const docSnapshot = await getDoc(docRef);
 
       if (docSnapshot.exists() && data) {
+        // Change this to dataStructure
         await setDoc(
           docRef,
           {

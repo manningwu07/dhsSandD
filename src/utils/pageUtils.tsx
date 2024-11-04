@@ -4,6 +4,9 @@ import { db } from "~/lib/firebase";
 import { openDB } from "idb"; // Import idb library for IndexedDB operations
 import { DataStructure } from "./dataStructure";
 
+// This file is the most heavily modified file in the entire project. Be careful with this one
+
+// Change this to page names
 export type PullContentResult<T> =
   T extends "all" ? DataStructure :                               // Entire DataStructure
   T extends keyof DataStructure["pages"] ?                        // A single subset in pages
@@ -64,7 +67,7 @@ function hasCircularReference(obj: any, seen = new Set()) {
 // Function to fetch the entire content document from Firestore (for Admin Interface)
 export async function fetchFullContent() {
   try {
-    const docRef = doc(db, "dhsSpeechAndDebate", "content");
+    const docRef = doc(db, "dhsSpeechAndDebate", "content"); // Change this to page names
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
@@ -82,7 +85,7 @@ export async function fetchFullContent() {
   }
 }
 
-export function pullContent<T extends keyof DataStructure["pages"] | "components" | "all">(
+export function pullContent<T extends keyof DataStructure["pages"] | "components" | "all">( // Change this to page names
   field: T,
   providedContent?: PullContentResult<T>
 ) {

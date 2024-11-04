@@ -89,7 +89,7 @@ export default function AdminInterface() {
           <div className="space-y-8 p-8">
             <ScrollArea className="w-full">
               <div className="flex pb-4 flex-wrap">
-                {['landing', 'about', 'board', 'parents', 'tournament', 'clubEvents'].map((page) => (
+                {['landing', 'about', 'board', 'parents', 'tournament', 'clubEvents'].map((page) => ( // Change this to page names
                   <Button
                     key={page}
                     onClick={() => setActivePage(page)}

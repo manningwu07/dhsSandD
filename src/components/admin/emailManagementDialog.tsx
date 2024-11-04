@@ -28,7 +28,7 @@ export function EmailManagementDialog({ isOpen, setIsOpen }: EmailManagementDial
   }, []);
 
   const fetchEmails = async () => {
-    const docRef = doc(db, 'dhsSpeechAndDebate', 'authorizedUsers');
+    const docRef = doc(db, 'dhsSpeechAndDebate', 'authorizedUsers'); // Change this to your Firestore collection name
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       const data = docSnap.data();
@@ -38,7 +38,7 @@ export function EmailManagementDialog({ isOpen, setIsOpen }: EmailManagementDial
 
   const addEmail = async () => {
     if (emailInput && !emails.includes(emailInput)) {
-      const docRef = doc(db, 'dhsSpeechAndDebate', 'authorizedUsers');
+      const docRef = doc(db, 'dhsSpeechAndDebate', 'authorizedUsers'); // Change this to your Firestore collection name
       await updateDoc(docRef, {
         admin: arrayUnion(emailInput),
       });
@@ -48,7 +48,7 @@ export function EmailManagementDialog({ isOpen, setIsOpen }: EmailManagementDial
   };
 
   const removeEmail = async (email: string) => {
-    const docRef = doc(db, 'dhsSpeechAndDebate', 'authorizedUsers');
+    const docRef = doc(db, 'dhsSpeechAndDebate', 'authorizedUsers'); // Change this to your Firestore collection name
     await updateDoc(docRef, {
       admin: arrayRemove(email),
     });

@@ -15,6 +15,7 @@ interface PreviewPaneProps {
 }
 
 export function PreviewPane({ data, activePage, width }: PreviewPaneProps) {
+// Change this to page names
   const renderPreview = () => {
     switch (activePage) {
       case 'landing':
