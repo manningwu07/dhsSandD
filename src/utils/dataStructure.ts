@@ -1,3 +1,15 @@
+// Modify the datastructure to match the website 
+
+// Disclaimers
+// DO NOT USE ARRAYS, IF YOU NEED TO, MAKE THE ELEMENTS OBJECTS WITH 1 ATTRBUTES
+// THIS DOES NOT AFFECT NAVBAR/FOOTER ITEMS
+// DOES NOT MOBILE DESIGN ADAPT
+
+// Other helpful things
+// src, imageSrc will prompt image uploading
+// Links are manually made in the pages (set <Link href ={item.link}>content</Link>)
+// It may not render for you when u check it out on the main; thats cuz theres caches. Just trust it works C:
+
 export interface DataStructure {
     components: {
       hero: {
