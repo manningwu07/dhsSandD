@@ -10,7 +10,7 @@ import {
 import { InfoIcon } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
-import { Input } from "~/components/ui/input";
+import Link from "next/link";
 import { Label } from "~/components/ui/label";
 import { Alert, AlertTitle, AlertDescription } from "~/components/ui/alert";
 import { PageProps, pullContent } from "~/utils/pageUtils";
@@ -71,11 +71,11 @@ export default function TournamentPage({
                 <p>{method.description}</p>
               </CardHeader>
               <CardContent>
-                <Accordion type="single" collapsible className="w-full">
+                <ul className="w-full list-none">
                   {method.accordionItems.map((item, itemIndex) => (
-                    <AccordionItem key={itemIndex} value={`item-${itemIndex}`}>
-                      <AccordionTrigger>{item.trigger}</AccordionTrigger>
-                      <AccordionContent>
+                    <li key={itemIndex} className="mb-4">
+                      <h3 className="font-semibold">{item.trigger}</h3>
+                      <div className="mt-2">
                         {Array.isArray(item.content) ? (
                           <ul className="list-disc space-y-2 pl-5">
                             {item.content.map((contentItem, idx) => (
@@ -85,10 +85,10 @@ export default function TournamentPage({
                         ) : (
                           <p>{item.content}</p>
                         )}
-                      </AccordionContent>
-                    </AccordionItem>
+                      </div>
+                    </li>
                   ))}
-                </Accordion>
+                </ul>
               </CardContent>
             </Card>
           ))}
@@ -96,8 +96,8 @@ export default function TournamentPage({
 
         <Alert className="my-8 rounded-xl bg-zinc-800 bg-opacity-80 p-2">
           <InfoIcon className="h-4 w-4" />
-          <AlertTitle>Important Note</AlertTitle>
-          <AlertDescription>
+          <AlertTitle className="ml-2">Important Note</AlertTitle>
+          <AlertDescription className="ml-2">
             MOST UPDATED SIGN-UPS FOR EACH TOURNAMENT + FEE STATUS IS LISTED ON
             THE SIGN-UPS TAB OF THE SPREADSHEET BELOW!
           </AlertDescription>
@@ -162,17 +162,14 @@ export default function TournamentPage({
             <CardTitle>Submission Location</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-2">
-              <Label htmlFor="email">Email:</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder={tournamentContent.submissionDetails.email}
-                readOnly
-              />
+            <div className="flex"> 
+              <p>Email: &nbsp;</p>
+              <Link href="mailto:dublinhighspeechanddebate@gmail.com">
+                {tournamentContent.submissionDetails.email}
+              </Link>
             </div>
             <p className="mt-4">
-              Or deliver physical copies to{" "}
+              Or deliver physical copies to&nbsp; 
               {tournamentContent.submissionDetails.physicalSubmission}.
             </p>
           </CardContent>

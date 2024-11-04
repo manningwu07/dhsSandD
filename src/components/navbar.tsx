@@ -101,18 +101,18 @@ export default function Navbar() {
 function NavLink({
   href,
   children,
-  className = "border-white text-white hover:border-gray-400 hover:text-gray-400",
+  className,
   onClick,
 }: {
   href: string;
   children: React.ReactNode;
-  className?: string;
+  className?: string
   onClick?: () => void;
 }) {
   return (
     <Link
       href={href}
-      className={`border-b-2 border-t-2 py-2 transition-colors ${className}`}
+      className={`border-b-2 border-t-2 py-2 transition-colors hover:border-gray-400 hover:text-gray-400 text-white ${className}`}
       onClick={onClick}
     >
       {children}

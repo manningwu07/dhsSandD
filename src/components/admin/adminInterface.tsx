@@ -107,38 +107,37 @@ export default function AdminInterface() {
   };
 
   const renderEditField = (path: string, value: any, depth = 0) => {
-    if (typeof value === "string" && isImageField(path)) {
-      return (
-        <ImageUpload
-          currentSrc={value}
-          onUpload={(url) => handleEdit(path, url)}
-          path={path}
-        />
-      );
-    }
-
     if (Array.isArray(value)) {
       return (
         <div className="mb-8 space-y-4">
           {value.map((item, index) => (
-            <div
-              key={index}
-              className="relative rounded-lg bg-white p-4 shadow"
-            >
+            <div key={index} className="relative rounded-lg bg-white p-4 shadow">
               {Object.entries(item).map(([key, val]) => (
                 <div key={key} className="mb-4">
                   <label className="mb-2 block text-sm font-medium capitalize">
                     {key.split(/(?=[A-Z])/).join(" ")}
                   </label>
-                  <textarea
-                    value={val as string}
-                    onChange={(e) => {
-                      const newArray = [...value];
-                      newArray[index] = { ...item, [key]: e.target.value };
-                      handleEdit(path, newArray);
-                    }}
-                    className="focus:ring-blue-500 min-h-[100px] w-full rounded-lg border p-3 focus:ring-2"
-                  />
+                  {typeof val === "string" && isImageField(`${path}.${key}`) ? (
+                    <ImageUpload
+                      currentSrc={val}
+                      onUpload={(url) => {
+                        const newArray = [...value];
+                        newArray[index] = { ...item, [key]: url };
+                        handleEdit(path, newArray);
+                      }}
+                      path={`${path}.${key}`}
+                    />
+                  ) : (
+                    <textarea
+                      value={val as string}
+                      onChange={(e) => {
+                        const newArray = [...value];
+                        newArray[index] = { ...item, [key]: e.target.value };
+                        handleEdit(path, newArray);
+                      }}
+                      className="focus:ring-blue-500 min-h-[100px] w-full rounded-lg border p-3 focus:ring-2"
+                    />
+                  )}
                 </div>
               ))}
               <Button
@@ -161,9 +160,8 @@ export default function AdminInterface() {
         </div>
       );
     }
-
+  
     if (typeof value === "object") {
-      // Only wrap in accordion if it's a top-level section
       const isTopLevel = depth === 0;
       const content = (
         <div className="space-y-6">
@@ -174,12 +172,20 @@ export default function AdminInterface() {
                   {key.split(/(?=[A-Z])/).join(" ")}
                 </h3>
               )}
-              {renderEditField(`${path}.${key}`, val, depth + 1)}
+              {typeof val === "string" && isImageField(`${path}.${key}`) ? (
+                <ImageUpload
+                  currentSrc={val}
+                  onUpload={(url) => handleEdit(`${path}.${key}`, url)}
+                  path={`${path}.${key}`}
+                />
+              ) : (
+                renderEditField(`${path}.${key}`, val, depth + 1)
+              )}
             </div>
           ))}
         </div>
       );
-
+  
       if (isTopLevel) {
         return Object.entries(value).map(([key, val]) => (
           <Accordion type="single" collapsible key={key}>
@@ -188,29 +194,45 @@ export default function AdminInterface() {
                 {key.split(/(?=[A-Z])/).join(" ")}
               </AccordionTrigger>
               <AccordionContent>
-                {renderEditField(`${path}.${key}`, val, depth + 1)}
+                {typeof val === "string" && isImageField(`${path}.${key}`) ? (
+                  <ImageUpload
+                    currentSrc={val}
+                    onUpload={(url) => handleEdit(`${path}.${key}`, url)}
+                    path={`${path}.${key}`}
+                  />
+                ) : (
+                  renderEditField(`${path}.${key}`, val, depth + 1)
+                )}
               </AccordionContent>
             </AccordionItem>
           </Accordion>
         ));
       }
-
+  
       return content;
     }
-
+  
     return (
       <div className="mb-6">
         <label className="mb-2 block text-sm font-medium capitalize">
           {createLabel(path)}
         </label>
-        <textarea
-          value={value as string}
-          onChange={(e) => handleEdit(path, e.target.value)}
-          className="focus:ring-blue-500 min-h-[100px] w-full rounded-lg border p-3 focus:ring-2"
-        />
+        {typeof value === "string" && isImageField(path) ? (
+          <ImageUpload
+            currentSrc={value}
+            onUpload={(url) => handleEdit(path, url)}
+            path={path}
+          />
+        ) : (
+          <textarea
+            value={value as string}
+            onChange={(e) => handleEdit(path, e.target.value)}
+            className="focus:ring-blue-500 min-h-[100px] w-full rounded-lg border p-3 focus:ring-2"
+          />
+        )}
       </div>
     );
-  };
+  };  
 
   const renderPreview = () => {
     if (!data) {
@@ -367,6 +389,7 @@ export default function AdminInterface() {
   return (
     <div className="flex h-screen flex-col bg-gray-50">
       <div className="border-b p-4">
+        {/* Deploy Website sign */}
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button
@@ -410,7 +433,7 @@ export default function AdminInterface() {
         >
           <div className="space-y-8 p-8">
             <ScrollArea className="w-full">
-              <div className="flex space-x-4 pb-4">
+              <div className="flex pb-4 flex-wrap">
                 {[
                   "landing",
                   "about",
@@ -423,6 +446,7 @@ export default function AdminInterface() {
                     key={page}
                     onClick={() => setActivePage(page)}
                     variant={activePage === page ? "default" : "outline"}
+                    className="m-2"
                   >
                     {page.charAt(0).toUpperCase() + page.slice(1)}
                   </Button>
