@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-interface LeadershipCardProps {
+export interface LeadershipCardProps {
   imageSrc: string;
   name: string;
   position: string;

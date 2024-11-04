@@ -5,8 +5,8 @@ import BoardPage from '~/pages/board';
 import ParentsPage from '~/pages/parents';
 import TournamentPage from '~/pages/tournament';
 import ClubEventsPage from '~/pages/club-events';
-import { DataStructure } from '~/utils/dataStructure';
-import { PullContentResult } from '~/utils/pageUtils';
+import type { DataStructure } from '~/utils/dataStructure';
+import type { PullContentResult } from '~/utils/pageUtils';
 
 interface PreviewPaneProps {
   data: DataStructure;

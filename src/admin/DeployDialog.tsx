@@ -12,7 +12,7 @@ import {
 import { Alert, AlertDescription, AlertTitle } from '~/components/ui/alert';
 import { db } from '~/lib/firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { DataStructure } from '~/utils/dataStructure';
+import type { DataStructure } from '~/utils/dataStructure';
 
 interface DeployDialogProps {
   isOpen: boolean;
@@ -83,7 +83,7 @@ export function DeployDialog({ isOpen, setIsOpen, isDeploying, setIsDeploying, d
           <Button variant="outline" onClick={() => setIsOpen(false)}>
             Cancel
           </Button>
-          <Button onClick={deployToFirebase}>Deploy</Button>
+          <Button onClick={void deployToFirebase}>Deploy</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

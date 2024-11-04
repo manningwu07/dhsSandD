@@ -2,10 +2,11 @@ import React from "react";
 import LandingCard from "~/components/card/LandingCard";
 import Footer from "~/components/footer";
 import Navbar from "~/components/navbar";
-import Description, {
+import type {
   CarouselImage,
   DescriptionParagraph,
 } from "~/components/sections/Description";
+import Description from "~/components/sections/Description";
 import Hero from "~/components/sections/Hero";
 import { DataStructure } from "~/utils/dataStructure";
 import { PageProps, pullContent } from "~/utils/pageUtils";

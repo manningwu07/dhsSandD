@@ -2,7 +2,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "~/lib/firebase";
 import { openDB } from "idb"; // Import idb library for IndexedDB operations
-import { DataStructure } from "./dataStructure";
+import type { DataStructure, fullContentStructure } from "./dataStructure";
 
 // This file is the most heavily modified file in the entire project. Be careful with this one
 
@@ -12,7 +12,7 @@ export type PullContentResult<T> =
   T extends keyof DataStructure["pages"] ?                        // A single subset in pages
     { [K in T]: DataStructure["pages"][K] } &                     // Wrap the subset in an object
     (T extends "landing" | "about" | "tournament" ?               // Include components if field is landing, about, or tournament
-      { components: DataStructure["components"] } : {}) :
+      { components: DataStructure["components"] } : {components: undefined}) :
   T extends "components" ? { components: DataStructure["components"] } : // Only components
   never;
 
@@ -74,7 +74,7 @@ export async function fetchFullContent() {
       const data = docSnap.data();
       // Cache the full document in IndexedDB
       await cacheData("fullContent", data);
-      return data as DataStructure;
+      return data as fullContentStructure;
     } else {
       console.error("No such document in Firestore!");
       return null;

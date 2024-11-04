@@ -141,7 +141,7 @@ export interface DataStructure {
   
 
 // For adminUI when pulling from DB to turn into DataStructure
-export function transformFullContent(fullContent: any): DataStructure {
+export function transformFullContent(fullContent: fullContentStructure): DataStructure {
   return {
       components: {
           hero: {
@@ -177,13 +177,13 @@ export function transformFullContent(fullContent: any): DataStructure {
               }
           },
           board: {
-              students: (fullContent.board?.students || []).map((student: any) => ({
+              students: (fullContent.board?.students || []).map((student) => ({
                   name: student.name || "",
                   position: student.position || "",
                   department: student.department || "",
                   imageSrc: student.imageSrc || ""
               })),
-              parents: (fullContent.board?.parents || []).map((parent: any) => ({
+              parents: (fullContent.board?.parents || []).map((parent) => ({
                   name: parent.name || "",
                   position: parent.position || "",
                   department: parent.department || "",
@@ -194,26 +194,26 @@ export function transformFullContent(fullContent: any): DataStructure {
               title: fullContent.clubEvents?.title || "",
               description: fullContent.clubEvents?.description || "",
               calendarLink: fullContent.clubEvents?.calendarLink || "",
-              events: (fullContent.clubEvents?.events || []).map((event: any) => ({
+              events: (fullContent.clubEvents?.events || []).map((event) => ({
                   date: event.date || "",
                   title: event.title || ""
               }))
           },
           landing: {
-              card: (fullContent.landing?.card || []).map((card: any) => ({
+              card: (fullContent.landing?.card || []).map((card) => ({
                   src: card.src || "",
                   header: card.header || "",
                   description: card.description || "",
                   link: card.link || ""
               })),
               description: {
-                  card: (fullContent.landing?.description?.card || []).map((card: any) => ({
+                  card: (fullContent.landing?.description?.card || []).map((card) => ({
                       src: card.src || "",
                       alt: card.alt || "",
                       header: card.header || "",
                       description: card.description || ""
                   })),
-                  paragraphs: (fullContent.landing?.description?.paragraphs || []).map((paragraph: any) => ({
+                  paragraphs: (fullContent.landing?.description?.paragraphs || []).map((paragraph) => ({
                       paragraph: paragraph.paragraph || ""
                   }))
               }
@@ -223,9 +223,9 @@ export function transformFullContent(fullContent: any): DataStructure {
               mentorGuide: {
                   title: fullContent.parents?.mentorGuide?.title || "",
                   description: fullContent.parents?.mentorGuide?.description || "",
-                  accordionItems: (fullContent.parents?.mentorGuide?.accordionItems || []).map((item: any) => ({
+                  accordionItems: (fullContent.parents?.mentorGuide?.accordionItems || []).map((item) => ({
                       title: item.title || "",
-                      description: (item.description || []).map((desc: any) => ({
+                      description: (item.description || []).map((desc) => ({
                           paragraph: desc || ""
                       }))
                   }))
@@ -240,27 +240,27 @@ export function transformFullContent(fullContent: any): DataStructure {
                   title: fullContent.parents?.videoTwo?.title || "",
                   description: fullContent.parents?.videoTwo?.description || ""
               },
-              additionalResourcesLinks: (fullContent.parents?.additionalResourcesLinks || []).map((link: any) => ({
+              additionalResourcesLinks: (fullContent.parents?.additionalResourcesLinks || []).map((link) => ({
                   link: link.link || "",
                   title: link.title || ""
               }))
           },
           tournament: {
-              signUpInstructions: (fullContent.tournament?.signUpInstructions || []).map((instruction: any) => ({
+              signUpInstructions: (fullContent.tournament?.signUpInstructions || []).map((instruction) => ({
                   title: instruction.title || "",
                   description: instruction.description || "",
-                  accordionItems: (instruction.accordionItems || []).map((item: any) => ({
+                  accordionItems: (instruction.accordionItems || []).map((item) => ({
                       trigger: item.trigger || "",
                       content: Array.isArray(item.content)
-                          ? item.content.map((content: any) => ({ paragraph: content }))
+                          ? item.content.map((content) => ({ paragraph: content }))
                           : item.content || ""
                   }))
               })),
               calendarLink: fullContent.tournament?.calendarLink || "",
-              formsToComplete: (fullContent.tournament?.formsToComplete || []).map((form: any) => ({
+              formsToComplete: (fullContent.tournament?.formsToComplete || []).map((form) => ({
                   paragraph: form.paragraph || ""
               })),
-              eligibilityRules: (fullContent.tournament?.eligibilityRules || []).map((rule: any) => ({
+              eligibilityRules: (fullContent.tournament?.eligibilityRules || []).map((rule) => ({
                   paragraph: rule.paragraph || ""
               })),
               submissionDetails: {
@@ -270,4 +270,170 @@ export function transformFullContent(fullContent: any): DataStructure {
           }
       }
   };
+}
+
+
+
+export interface fullContentStructure {
+  about: About;
+  board: Board;
+  clubEvents: ClubEvents;
+  components: Components;
+  landing: Landing;
+  parents: Parents;
+  tournament: Tournament;
+}
+
+interface About {
+  introduction: Introduction;
+  parentWeNeedYou: ParentWeNeedYou;
+  whySpeechAndDebate: WhySpeechAndDebate;
+  whyDebate: WhyDebate;
+  whySpeech: WhySpeech;
+}
+
+interface Introduction {
+  description: string;
+  imageSrc: string;
+  title: string;
+}
+
+interface ParentWeNeedYou {
+  callToAction: string;
+  description: string;
+  link: string;
+  title: string;
+}
+
+interface WhySpeechAndDebate {
+  description: string;
+  whyDebate: WhyDebate;
+  whySpeech: WhySpeech;
+  title: string;
+}
+
+interface WhyDebate {
+  description: string;
+  title: string;
+}
+
+interface WhySpeech {
+  description: string;
+  title: string;
+}
+
+interface Board {
+  parents: Person[];
+  students: Person[];
+}
+
+interface Person {
+  department: string;
+  imageSrc: string;
+  name: string;
+  position: string;
+}
+
+interface ClubEvents {
+  calendarLink: string;
+  description: string;
+  events: Event[];
+  title: string;
+}
+
+interface Event {
+  date: string;
+  title: string;
+}
+
+interface Components {
+  hero: Hero;
+}
+
+interface Hero {
+  buttonLink: string;
+  description: string;
+  title: string;
+}
+
+interface Landing {
+  card: Card[];
+  description: LandingDescription;
+}
+
+interface Card {
+  description: string;
+  header: string;
+  link: string;
+  src: string;
+}
+
+interface LandingDescription {
+  card: DescriptionCard[];
+  paragraphs: Paragraph[];
+}
+
+interface DescriptionCard {
+  alt: string;
+  description: string;
+  header: string;
+  src: string;
+}
+
+interface Paragraph {
+  paragraph: string;
+}
+
+interface Parents {
+  title: string;
+  additionalResourcesLinks: ResourceLink[];
+  mentorGuide: MentorGuide;
+  videoOne: Video;
+  videoTwo: Video;
+}
+
+interface ResourceLink {
+  link: string;
+  title: string;
+}
+
+interface MentorGuide {
+  title: string;
+  description: string;
+  accordionItems: AccordionItem[];
+}
+
+interface AccordionItem {
+  title: string;
+  description: string[];
+}
+
+interface Video {
+  description: string;
+  link: string;
+  title: string;
+}
+
+interface Tournament {
+  calendarLink: string;
+  eligibilityRules: Paragraph[];
+  formsToComplete: Paragraph[];
+  signUpInstructions: SignUpInstruction[];
+  submissionDetails: SubmissionDetails;
+}
+
+interface SignUpInstruction {
+  title: string;
+  description: string;
+  accordionItems: AccordionContent[];
+}
+
+interface AccordionContent {
+  trigger: string;
+  content: string | string[];
+}
+
+interface SubmissionDetails {
+  email: string;
+  physicalSubmission: string;
 }

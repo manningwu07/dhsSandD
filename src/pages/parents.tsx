@@ -8,8 +8,8 @@ import {
 import Link from "next/link";
 import Footer from "~/components/footer";
 import Navbar from "~/components/navbar";
-import { PageProps, pullContent } from "~/utils/pageUtils";
-import { DataStructure } from "~/utils/dataStructure";
+import type { PageProps } from "~/utils/pageUtils";
+import { pullContent } from "~/utils/pageUtils";
 
 function VideoCard({
   link,
@@ -48,7 +48,7 @@ export default function ParentsPage({ content: providedContent }: PageProps) {
     return (
       <div className="error-container">
         <h1>Service Unavailable</h1>
-        <p>We're experiencing issues retrieving content. Please try again later.</p>
+        <p>We&apos;re experiencing issues retrieving content. Please try again later.</p>
       </div>
     );
   }
@@ -58,7 +58,7 @@ export default function ParentsPage({ content: providedContent }: PageProps) {
     return <div>Loading...</div>;
   }
 
-  const parentContent = content.parents as DataStructure["pages"]["parents"];
+  const parentContent = content.parents;
   
   return (
     <div className="min-h-screen overflow-hidden bg-[url('/Background.webp')] bg-cover bg-fixed bg-center text-white">

@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
-import LeadershipCard from "~/components/card/BoardCard";
+import LeadershipCard, { LeadershipCardProps } from "~/components/card/BoardCard";
 import Footer from "~/components/footer";
 import Navbar from "~/components/navbar";
-import { DataStructure } from "~/utils/dataStructure";
-import { PageProps, pullContent } from "~/utils/pageUtils";
+import type { PageProps } from "~/utils/pageUtils";
+import { pullContent } from "~/utils/pageUtils";
 
 export default function BoardPage({ content: providedContent }: PageProps) {
   const { content, error } = pullContent("board", providedContent);
@@ -13,7 +13,7 @@ export default function BoardPage({ content: providedContent }: PageProps) {
     return (
       <div className="error-container">
         <h1>Service Unavailable</h1>
-        <p>We're experiencing issues retrieving content. Please try again later.</p>
+        <p>We&apos;re experiencing issues retrieving content. Please try again later.</p>
       </div>
     );
   }
@@ -23,7 +23,7 @@ export default function BoardPage({ content: providedContent }: PageProps) {
     return <div>Loading...</div>;
   }
 
-  const boardContent = content.board as DataStructure["pages"]["board"];
+  const boardContent = content.board;
   const officers = boardContent.students;
   const advisors = boardContent.parents;
   const cols = advisors.length < 5 ? advisors.length : 4;
@@ -38,7 +38,7 @@ export default function BoardPage({ content: providedContent }: PageProps) {
             2024-2025 OFFICER BOARD
           </h1>
           <div className="grid grid-cols-1 justify-items-center gap-6 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-            {officers.map((officer: any, index: number) => (
+            {officers.map((officer: LeadershipCardProps, index: number) => (
               <motion.div
                 key={index}
                 initial={{ x: 75, opacity: 0 }}
@@ -56,7 +56,7 @@ export default function BoardPage({ content: providedContent }: PageProps) {
             Parent Advisor{advisors.length > 1 && "s"}
           </h2>
           <div className={layoutClass}>
-            {advisors.map((advisor: any, index: number) => (
+            {advisors.map((advisor: LeadershipCardProps, index: number) => (
               <motion.div
                 key={index}
                 initial={{ x: 75, opacity: 0 }}

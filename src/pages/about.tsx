@@ -4,7 +4,8 @@ import Hero from "~/components/sections/Hero";
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent } from "~/components/ui/card";
-import { PageProps, pullContent } from "~/utils/pageUtils";
+import type { PageProps } from "~/utils/pageUtils";
+import { pullContent } from "~/utils/pageUtils";
 
 function ActionButton({ link, text }: { link: string; text: string }) {
   return (
@@ -22,7 +23,7 @@ export default function AboutPage({ content: providedContent }: PageProps) {
     return (
       <div className="error-container">
         <h1>Service Unavailable</h1>
-        <p>We're experiencing issues retrieving content. Please try again later.</p>
+        <p>We&apos;re experiencing issues retrieving content. Please try again later.</p>
       </div>
     );
   }

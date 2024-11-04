@@ -1,19 +1,13 @@
 import { useState } from "react";
 import Navbar from "~/components/navbar";
 import Hero from "~/components/sections/Hero";
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from "@radix-ui/react-accordion";
 import { InfoIcon } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import Link from "next/link";
-import { Label } from "~/components/ui/label";
 import { Alert, AlertTitle, AlertDescription } from "~/components/ui/alert";
-import { PageProps, pullContent } from "~/utils/pageUtils";
+import { pullContent } from "~/utils/pageUtils";
+import type { PageProps } from "~/utils/pageUtils";
 import { DataStructure } from "~/utils/dataStructure";
 import Footer from "~/components/footer";
 

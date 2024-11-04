@@ -6,8 +6,8 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { DataStructure } from "~/utils/dataStructure";
-import { PageProps, pullContent } from "~/utils/pageUtils";
+import type { PageProps } from "~/utils/pageUtils";
+import { pullContent } from "~/utils/pageUtils";
 
 export default function ClubEventsPage({ content: providedContent }: PageProps) {
   const { content, error } = pullContent("clubEvents", providedContent);
@@ -17,7 +17,7 @@ export default function ClubEventsPage({ content: providedContent }: PageProps) 
     return (
       <div className="error-container">
         <h1>Service Unavailable</h1>
-        <p>We're experiencing issues retrieving content. Please try again later.</p>
+        <p>We&apos;re experiencing issues retrieving content. Please try again later.</p>
       </div>
     );
   }
@@ -27,7 +27,7 @@ export default function ClubEventsPage({ content: providedContent }: PageProps) 
     return <div>Loading...</div>;
   }
 
-  const clubEventsContent = content.clubEvents as DataStructure["pages"]["clubEvents"];
+  const clubEventsContent = content.clubEvents;
   const events = clubEventsContent.events;
   
   return (

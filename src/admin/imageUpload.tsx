@@ -72,7 +72,7 @@ export function ImageUpload({ currentSrc, onUpload, path }: ImageUploadProps) {
         <Input
           type="file"
           accept="image/*"
-          onChange={handleFileChange}
+          onChange={void handleFileChange}
           disabled={uploading}
         />
         {uploading && <Loader2 className="h-4 w-4 animate-spin" />}

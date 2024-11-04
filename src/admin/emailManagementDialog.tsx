@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { Button } from '~/components/ui/button';
-import { Trash2 } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { Button } from "~/components/ui/button";
+import { Trash2 } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -9,26 +9,34 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '~/components/ui/dialog';
-import { db } from '~/lib/firebase';
-import { doc, getDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+} from "~/components/ui/dialog";
+import { db } from "~/lib/firebase";
+import {
+  doc,
+  getDoc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+} from "firebase/firestore";
 
 interface EmailManagementDialogProps {
-  
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
 }
 
-export function EmailManagementDialog({ isOpen, setIsOpen }: EmailManagementDialogProps) {
+export function EmailManagementDialog({
+  isOpen,
+  setIsOpen,
+}: EmailManagementDialogProps) {
   const [emails, setEmails] = useState<string[]>([]);
-  const [emailInput, setEmailInput] = useState('');
+  const [emailInput, setEmailInput] = useState("");
 
   useEffect(() => {
-    fetchEmails();
+    void fetchEmails();
   }, []);
 
   const fetchEmails = async () => {
-    const docRef = doc(db, 'dhsSpeechAndDebate', 'authorizedUsers'); // Change this to your Firestore collection name
+    const docRef = doc(db, "dhsSpeechAndDebate", "authorizedUsers"); // Change this to your Firestore collection name
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       const data = docSnap.data();
@@ -38,17 +46,17 @@ export function EmailManagementDialog({ isOpen, setIsOpen }: EmailManagementDial
 
   const addEmail = async () => {
     if (emailInput && !emails.includes(emailInput)) {
-      const docRef = doc(db, 'dhsSpeechAndDebate', 'authorizedUsers'); // Change this to your Firestore collection name
+      const docRef = doc(db, "dhsSpeechAndDebate", "authorizedUsers"); // Change this to your Firestore collection name
       await updateDoc(docRef, {
         admin: arrayUnion(emailInput),
       });
       setEmails([...emails, emailInput]);
-      setEmailInput('');
+      setEmailInput("");
     }
   };
 
   const removeEmail = async (email: string) => {
-    const docRef = doc(db, 'dhsSpeechAndDebate', 'authorizedUsers'); // Change this to your Firestore collection name
+    const docRef = doc(db, "dhsSpeechAndDebate", "authorizedUsers"); // Change this to your Firestore collection name
     await updateDoc(docRef, {
       admin: arrayRemove(email),
     });
@@ -58,7 +66,11 @@ export function EmailManagementDialog({ isOpen, setIsOpen }: EmailManagementDial
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="ml-4" onClick={() => setIsOpen(true)}>
+        <Button
+          variant="outline"
+          className="ml-4"
+          onClick={() => setIsOpen(true)}
+        >
           Manage Admin Emails
         </Button>
       </DialogTrigger>
@@ -66,7 +78,8 @@ export function EmailManagementDialog({ isOpen, setIsOpen }: EmailManagementDial
         <DialogHeader>
           <DialogTitle>Manage Admin Emails</DialogTitle>
           <DialogDescription>
-            Add or remove admin email addresses authorized to access this interface.
+            Add or remove admin email addresses authorized to access this
+            interface.
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4">
@@ -76,17 +89,21 @@ export function EmailManagementDialog({ isOpen, setIsOpen }: EmailManagementDial
               value={emailInput}
               onChange={(e) => setEmailInput(e.target.value)}
               placeholder="Enter email address"
-              className="border rounded p-2 w-full"
+              className="w-full rounded border p-2"
             />
-            <Button onClick={addEmail} disabled={!emailInput}>
+            <Button onClick={void addEmail} disabled={!emailInput}>
               Add
             </Button>
           </div>
-          <ul className="list-disc pl-5 space-y-2">
+          <ul className="list-disc space-y-2 pl-5">
             {emails.map((email) => (
-              <li key={email} className="flex justify-between items-center">
+              <li key={email} className="flex items-center justify-between">
                 <span>{email}</span>
-                <Button variant="destructive" size="sm" onClick={() => removeEmail(email)}>
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  onClick={() => void removeEmail(email)}
+                >
                   <Trash2 className="h-4 w-4" /> Remove
                 </Button>
               </li>

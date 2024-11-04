@@ -4,7 +4,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { ScrollArea } from '~/components/ui/scroll-area';
 import { Button } from '~/components/ui/button';
 import { fetchFullContent } from '~/utils/pageUtils';
-import { DataStructure, transformFullContent } from '~/utils/dataStructure';
+import type { DataStructure } from '~/utils/dataStructure';
+import { transformFullContent } from '~/utils/dataStructure';
 import { renderEditField } from './renderEditField';
 import { DeployDialog } from './DeployDialog';
 import { PreviewPane } from './PreviewPane';
@@ -24,17 +25,20 @@ export default function AdminInterface() {
       const fullContent = await fetchFullContent();
       if (fullContent) {
         const formattedData: DataStructure = transformFullContent(fullContent);
-        setData(formattedData as DataStructure);
+        setData(formattedData);
       } else {
         console.error('Failed to load content for admin interface.');
       }
     }
 
-    loadFullContent();
+    void loadFullContent();
   }, []);
 
-  const handleEdit = (path: string, value: any) => {
-    setData((prev) => setNestedValue(prev, path, value));
+  const handleEdit = <T,>(path: string, value: T) => {
+    setData((prev) => {
+      if (!prev) return prev; // Safeguard if prev is null
+      return setNestedValue(prev, path, value);
+    });
   };
 
   const handleMouseDown = useCallback(() => {

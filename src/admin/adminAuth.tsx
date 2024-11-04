@@ -11,25 +11,34 @@ const AdminAuth = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     // Monitor authentication state and check admin status
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const isAdmin = await checkIfAdmin(user.email || ''); // Pass user.email
-        if (isAdmin) {
-          setIsAdmin(true);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      const checkAdminStatus = async () => {
+        if (user) {
+          const isAdmin = await checkIfAdmin(user.email ?? '') as boolean; // Ensure type of checkIfAdmin return value
+          if (isAdmin) {
+            setIsAdmin(true);
+          } else {
+            navigate('/');
+          }
         } else {
           navigate('/');
         }
-      } else {
-        navigate('/');
-      }
-      setLoading(false);
+        setLoading(false);
+      };
+      
+      // Call the async function
+      checkAdminStatus().catch(error => {
+        console.error("Error checking admin status:", error);
+        setLoading(false);
+      });
     });
+    
     return () => unsubscribe();
   }, [navigate]);
 
   if (loading) return <div>Loading...</div>;
 
-  return isAdmin ? <>{children}</> : null;  
+  return isAdmin ? <>{children}</> : null;
 };
 
 export default AdminAuth;
