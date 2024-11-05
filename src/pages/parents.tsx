@@ -9,7 +9,7 @@ import Link from "next/link";
 import Footer from "~/components/footer";
 import Navbar from "~/components/navbar";
 import type { PageProps } from "~/utils/pageUtils";
-import { pullContent } from "~/utils/pageUtils";
+import { usePullContent } from "~/utils/pageUtils";
 
 function VideoCard({
   link,
@@ -41,7 +41,7 @@ function VideoCard({
 }
 
 export default function ParentsPage({ content: providedContent }: PageProps) {
-  const {content, error} = pullContent("parents", providedContent);
+  const {content, error} = usePullContent("parents", providedContent);
 
   if (error) {
     // Display a fallback error message if Firestore fetch fails

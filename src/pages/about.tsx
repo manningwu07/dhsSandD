@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent } from "~/components/ui/card";
 import type { PageProps } from "~/utils/pageUtils";
-import { pullContent } from "~/utils/pageUtils";
+import { usePullContent } from "~/utils/pageUtils";
 
 function ActionButton({ link, text }: { link: string; text: string }) {
   return (
@@ -16,7 +16,7 @@ function ActionButton({ link, text }: { link: string; text: string }) {
 }
 
 export default function AboutPage({ content: providedContent }: PageProps) {
-  const { content, error } = pullContent("about", providedContent);
+  const { content, error } = usePullContent("about", providedContent);
 
   if (error) {
     // Display a fallback error message if Firestore fetch fails

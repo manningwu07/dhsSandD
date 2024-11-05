@@ -83,7 +83,7 @@ export function DeployDialog({ isOpen, setIsOpen, isDeploying, setIsDeploying, d
           <Button variant="outline" onClick={() => setIsOpen(false)}>
             Cancel
           </Button>
-          <Button onClick={void deployToFirebase}>Deploy</Button>
+          <Button onClick={deployToFirebase}>Deploy</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -55,7 +55,7 @@ function hasCircularReference(obj: any, seen = new Set()) {
   if (obj && typeof obj === "object") {
     if (seen.has(obj)) return true;
     seen.add(obj);
-    for (let key in obj) {
+    for (const key in obj) {
       if (hasCircularReference(obj[key], seen)) return true;
     }
     seen.delete(obj);
@@ -85,7 +85,7 @@ export async function fetchFullContent() {
   }
 }
 
-export function pullContent<T extends keyof DataStructure["pages"] | "components" | "all">( // Change this to page names
+export function usePullContent<T extends keyof DataStructure["pages"] | "components" | "all">( // Change this to page names
   field: T,
   providedContent?: PullContentResult<T>
 ) {
@@ -125,7 +125,7 @@ export function pullContent<T extends keyof DataStructure["pages"] | "components
             result = { ...result, [field]: data[field] } as PullContentResult<T>;
           }
           if ((field === "landing" || field === "about" || field === "tournament") && "components" in data) {
-            result = { ...result, components: data["components"] } as PullContentResult<T>;
+            result = { ...result, components: data.components } as PullContentResult<T>;
           }
 
           // Check for circular reference in result before caching
@@ -143,8 +143,8 @@ export function pullContent<T extends keyof DataStructure["pages"] | "components
         }
       }
     }
-
-    loadContent();
+    
+    void loadContent();
   }, [field, providedContent]);
 
   return { content, error };

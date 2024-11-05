@@ -6,9 +6,8 @@ import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import Link from "next/link";
 import { Alert, AlertTitle, AlertDescription } from "~/components/ui/alert";
-import { pullContent } from "~/utils/pageUtils";
+import { usePullContent } from "~/utils/pageUtils";
 import type { PageProps } from "~/utils/pageUtils";
-import { DataStructure } from "~/utils/dataStructure";
 import Footer from "~/components/footer";
 
 export default function TournamentPage({
@@ -16,7 +15,7 @@ export default function TournamentPage({
 }: PageProps) {
   const [showSpreadsheetInfo, setShowSpreadsheetInfo] = useState(true);
 
-  const { content, error } = pullContent("tournament", providedContent);
+  const { content, error } = usePullContent("tournament", providedContent);
 
   if (error) {
     // Display a fallback error message if Firestore fetch fails
@@ -24,7 +23,7 @@ export default function TournamentPage({
       <div className="error-container">
         <h1>Service Unavailable</h1>
         <p>
-          We're experiencing issues retrieving content. Please try again later.
+          We&apos;re experiencing issues retrieving content. Please try again later.
         </p>
       </div>
     );
@@ -36,7 +35,7 @@ export default function TournamentPage({
   }
 
   const tournamentContent =
-    content.tournament as DataStructure["pages"]["tournament"];
+    content.tournament;
   console.log("tournamentContent", tournamentContent);
 
   return (

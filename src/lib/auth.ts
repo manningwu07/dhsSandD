@@ -1,6 +1,6 @@
 // auth.ts
 import { auth, googleProvider } from "./firebase";
-import { signInWithPopup, UserCredential } from "firebase/auth";
+import { signInWithPopup, type UserCredential } from "firebase/auth";
 import { doc, getDoc, getFirestore } from 'firebase/firestore';
 
 const db = getFirestore();
@@ -12,6 +12,7 @@ export const signInWithGoogle = async (): Promise<UserCredential | void> => {
     return result;
   } catch (error) {
     console.error("Error signing in with Google:", error);
+    return undefined;
   }
 };
 
@@ -21,7 +22,7 @@ export const checkIfAdmin = async (userEmail: string) => {
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-    const adminEmails = docSnap.data()?.admin || [];
+    const adminEmails: string[] = docSnap.data()?.admin || [];
     const ownerEmail = docSnap.data()?.owner;
     return adminEmails.includes(userEmail) || ownerEmail === userEmail;
   }

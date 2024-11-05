@@ -7,10 +7,10 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import type { PageProps } from "~/utils/pageUtils";
-import { pullContent } from "~/utils/pageUtils";
+import { usePullContent } from "~/utils/pageUtils";
 
 export default function ClubEventsPage({ content: providedContent }: PageProps) {
-  const { content, error } = pullContent("clubEvents", providedContent);
+  const { content, error } = usePullContent("clubEvents", providedContent);
 
   if (error) {
     // Display a fallback error message if Firestore fetch fails

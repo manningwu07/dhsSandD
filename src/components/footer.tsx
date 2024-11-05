@@ -28,13 +28,13 @@ export default function Footer() {
   const handleSignInAndRedirect = () => {
     signInWithGoogle().then((userCredential) => {
       if (userCredential) {
-        router.push("/admin"); // Redirect to /admin
+        void router.push("/admin") // Redirect to /admin
       } else {
-        console.error("Sign-in failed");
+        void router.push("/")
       }
-    }).catch(error => {
-      console.error("Error signing in:", error);
-    });;
+    }).catch(() => {
+      void router.push("/");
+    });
   };
 
   return (

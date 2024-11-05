@@ -1,26 +1,9 @@
-"use client";
+// pages/admin.tsx
+import dynamic from 'next/dynamic';
 
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import LandingPage from './LandingPage';
-import AdminAuth from '~/admin/adminAuth';
-import AdminInterface from '~/admin/adminInterface';
+// Dynamically import AdminPage with SSR disabled
+const AdminPage = dynamic(() => import('../admin/adminPage'), { ssr: false });
 
-function AdminPage() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route
-          path="/admin"
-          element={
-            <AdminAuth>
-              <AdminInterface />
-            </AdminAuth>
-          }
-        />
-      </Routes>
-    </Router>
-  );
+export default function Admin() {
+  return <AdminPage />;
 }
-
-export default AdminPage;

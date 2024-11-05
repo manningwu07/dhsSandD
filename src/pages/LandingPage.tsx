@@ -8,11 +8,10 @@ import type {
 } from "~/components/sections/Description";
 import Description from "~/components/sections/Description";
 import Hero from "~/components/sections/Hero";
-import { DataStructure } from "~/utils/dataStructure";
-import { PageProps, pullContent } from "~/utils/pageUtils";
+import { type PageProps, usePullContent } from "~/utils/pageUtils";
 
 export default function LandingPage({ content: providedContent }: PageProps) {
-  const { content, error } = pullContent("landing", providedContent);
+  const { content, error } = usePullContent("landing", providedContent);
 
   if (error) {
     // Display a fallback error message if Firestore fetch fails
@@ -20,7 +19,7 @@ export default function LandingPage({ content: providedContent }: PageProps) {
       <div className="error-container">
         <h1>Service Unavailable</h1>
         <p>
-          We're experiencing issues retrieving content. Please try again later.
+          We&apos;re experiencing issues retrieving content. Please try again later.
         </p>
       </div>
     );
@@ -32,8 +31,8 @@ export default function LandingPage({ content: providedContent }: PageProps) {
   }
 
   // Destructure the necessary parts from the content
-  const landingContent = content!.landing as DataStructure["pages"]["landing"];
-  const componentContent = content!.components as DataStructure["components"];
+  const landingContent = content.landing;
+  const componentContent = content.components;
   const cards = landingContent.card || [];
   const images: CarouselImage[] = landingContent.description?.card || [];
   const paragraphs: DescriptionParagraph[] =

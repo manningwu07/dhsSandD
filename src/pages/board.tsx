@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
-import LeadershipCard, { LeadershipCardProps } from "~/components/card/BoardCard";
+import LeadershipCard from "~/components/card/BoardCard"
+import { type LeadershipCardProps } from "~/components/card/BoardCard";
 import Footer from "~/components/footer";
 import Navbar from "~/components/navbar";
-import type { PageProps } from "~/utils/pageUtils";
-import { pullContent } from "~/utils/pageUtils";
+import { usePullContent, type PageProps } from "~/utils/pageUtils";
 
 export default function BoardPage({ content: providedContent }: PageProps) {
-  const { content, error } = pullContent("board", providedContent);
+  const { content, error } = usePullContent("board", providedContent);
 
   if (error) {
     // Display a fallback error message if Firestore fetch fails

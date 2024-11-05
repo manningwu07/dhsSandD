@@ -9,10 +9,10 @@ const CLOUDINARY_UPLOAD_PRESET = 'HighSchoolWebsites'
 interface ImageUploadProps {
   currentSrc: string
   onUpload: (url: string) => void
-  path: string
+  path?: string
 }
 
-export function ImageUpload({ currentSrc, onUpload, path }: ImageUploadProps) {
+export function ImageUpload({ currentSrc, onUpload }: ImageUploadProps) {
   const [uploading, setUploading] = useState(false)
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {

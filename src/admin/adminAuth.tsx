@@ -14,7 +14,7 @@ const AdminAuth = ({ children }: { children: React.ReactNode }) => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       const checkAdminStatus = async () => {
         if (user) {
-          const isAdmin = await checkIfAdmin(user.email ?? '') as boolean; // Ensure type of checkIfAdmin return value
+          const isAdmin = await checkIfAdmin(user.email ?? '');
           if (isAdmin) {
             setIsAdmin(true);
           } else {
@@ -28,7 +28,8 @@ const AdminAuth = ({ children }: { children: React.ReactNode }) => {
       
       // Call the async function
       checkAdminStatus().catch(error => {
-        console.error("Error checking admin status:", error);
+        navigate('/');
+        console.error("Error checking admin status:", error)
         setLoading(false);
       });
     });
