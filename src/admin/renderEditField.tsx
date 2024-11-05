@@ -1,11 +1,23 @@
-import { Trash2, Plus } from 'lucide-react';
-import { Button } from '~/components/ui/button';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '~/components/ui/accordion';
-import { ImageUpload } from './imageUpload';
+import { Trash2, Plus } from "lucide-react";
+import { Button } from "~/components/ui/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "~/components/ui/accordion";
+import { ImageUpload } from "./imageUpload";
 
-export function renderEditField(path: string, value: any, handleEdit: (path: string, value: any) => void, depth = 0) {
-
-  if (Array.isArray(value)) {
+export function renderEditField(
+  path: string,
+  value: any,
+  handleEdit: (path: string, value: any) => void,
+  depth = 0,
+) {
+  if (
+    Array.isArray(value) ||
+    (typeof value === "object" && isAccordion(path))
+  ) {
     return (
       <div className="mb-8 space-y-4">
         {value.map((item, index) => (
@@ -13,9 +25,9 @@ export function renderEditField(path: string, value: any, handleEdit: (path: str
             {Object.entries(item).map(([key, val]) => (
               <div key={key} className="mb-4">
                 <label className="mb-2 block text-sm font-medium capitalize">
-                  {key.split(/(?=[A-Z])/).join(' ')}
+                  {key.split(/(?=[A-Z])/).join(" ")}
                 </label>
-                {typeof val === 'string' && isImageField(`${path}.${key}`) ? (
+                {typeof val === "string" && isImageField(`${path}.${key}`) ? (
                   <ImageUpload
                     currentSrc={val}
                     onUpload={(url) => {
@@ -55,7 +67,7 @@ export function renderEditField(path: string, value: any, handleEdit: (path: str
           onClick={() => {
             const newItem = { ...value[0] };
             Object.keys(newItem).forEach((key) => {
-              if (typeof newItem[key] === 'string') newItem[key] = '';
+              if (typeof newItem[key] === "string") newItem[key] = "";
             });
             handleEdit(path, [...value, newItem]);
           }}
@@ -68,7 +80,7 @@ export function renderEditField(path: string, value: any, handleEdit: (path: str
     );
   }
 
-  if (typeof value === 'object') {
+  if (typeof value === "object") {
     const isTopLevel = depth === 0;
     const content = (
       <div className="space-y-6">
@@ -76,10 +88,10 @@ export function renderEditField(path: string, value: any, handleEdit: (path: str
           <div key={key}>
             {!isTopLevel && (
               <h3 className="mb-4 text-lg font-medium capitalize">
-                {key.split(/(?=[A-Z])/).join(' ')}
+                {key.split(/(?=[A-Z])/).join(" ")}
               </h3>
             )}
-            {typeof val === 'string' && isImageField(`${path}.${key}`) ? (
+            {typeof val === "string" && isImageField(`${path}.${key}`) ? (
               <ImageUpload
                 currentSrc={val}
                 onUpload={(url) => handleEdit(`${path}.${key}`, url)}
@@ -98,10 +110,10 @@ export function renderEditField(path: string, value: any, handleEdit: (path: str
         <Accordion type="single" collapsible key={key}>
           <AccordionItem value={key}>
             <AccordionTrigger className="text-lg font-medium capitalize">
-              {key.split(/(?=[A-Z])/).join(' ')}
+              {key.split(/(?=[A-Z])/).join(" ")}
             </AccordionTrigger>
             <AccordionContent>
-              {typeof val === 'string' && isImageField(`${path}.${key}`) ? (
+              {typeof val === "string" && isImageField(`${path}.${key}`) ? (
                 <ImageUpload
                   currentSrc={val}
                   onUpload={(url) => handleEdit(`${path}.${key}`, url)}
@@ -124,7 +136,7 @@ export function renderEditField(path: string, value: any, handleEdit: (path: str
       <label className="mb-2 block text-sm font-medium capitalize">
         {createLabel(path)}
       </label>
-      {typeof value === 'string' && isImageField(path) ? (
+      {typeof value === "string" && isImageField(path) ? (
         <ImageUpload
           currentSrc={value}
           onUpload={(url) => handleEdit(path, url)}
@@ -143,15 +155,22 @@ export function renderEditField(path: string, value: any, handleEdit: (path: str
 
 function createLabel(path: string) {
   return path
-    .split('.')
+    .split(".")
     .pop()
     ?.split(/(?=[A-Z])/)
-    .join(' ')
+    .join(" ")
     .toLowerCase();
 }
 
 function isImageField(fieldPath: string) {
-  const pathParts = fieldPath.split('.');
+  const pathParts = fieldPath.split(".");
   const lastPart = pathParts[pathParts.length - 1]!.toLowerCase();
-  return lastPart === 'src' || lastPart === 'imagesrc';
+  return lastPart === "src" || lastPart === "imagesrc";
+}
+
+function isAccordion(fieldPath: string) {
+  console.log("fieldPath", fieldPath);
+  const pathParts = fieldPath.split(".");
+  const lastPart = pathParts[pathParts.length - 1]!.toLowerCase();
+  return lastPart === "accordion" || lastPart === "accordionitems";
 }

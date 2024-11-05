@@ -252,7 +252,7 @@ export function transformFullContent(fullContent: fullContentStructure): DataStr
                   accordionItems: (instruction.accordionItems || []).map((item) => ({
                       trigger: item.trigger || "",
                       content: Array.isArray(item.content)
-                          ? item.content.map((content) => ({ paragraph: content }))
+                          ? item.content.map((content) => ({ paragraph: content.paragraph }))
                           : item.content || ""
                   }))
               })),
@@ -430,7 +430,7 @@ interface SignUpInstruction {
 
 interface AccordionContent {
   trigger: string;
-  content: string | string[];
+  content: string | Paragraph[];
 }
 
 interface SubmissionDetails {
