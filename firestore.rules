@@ -15,6 +15,7 @@ service cloud.firestore {
     }
 
 	 match /dhsSpeechAndDebate/content {
+   		allow read: if true;
       allow read, write: if isAuthorized(request.auth);
     }
   }

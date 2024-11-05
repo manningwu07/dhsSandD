@@ -56,21 +56,7 @@ export default function ClubEventsPage({ content: providedContent }: PageProps) 
         </Card>
         {/* Find some way to seperate the 2 based on JSON date */}
         <div className="mx-auto mt-8 max-w-5xl rounded-xl bg-zinc-800 bg-opacity-80 p-2">
-          <h2 className="mb-4 text-2xl font-semibold">Upcoming Events</h2>
-          <ul className="space-y-2">
-            {events.map((event, index) => (
-              <li
-                key={index}
-                className="flex items-center justify-between border-b pb-2"
-              >
-                <span>{event.title}</span>
-                <span>{event.date}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="mx-auto mt-8 max-w-5xl rounded-xl bg-zinc-800 bg-opacity-80 p-2">
-          <h2 className="mb-4 text-2xl font-semibold">Past Events</h2>
+          <h2 className="mb-4 text-2xl font-semibold">Events</h2>
           <ul className="space-y-2">
             {events.map((event, index) => (
               <li
