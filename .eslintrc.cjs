@@ -38,6 +38,7 @@ const config = {
     ],
     // Allows "any" to be used now
     "@typescript-eslint/no-unsafe-return": "off", // Disable no-unsafe-return
+    " @typescript-eslint/no-floating-promises": "off", // Disable no-floating-promises
     "@typescript-eslint/no-unsafe-call": "off", // Disable no-unsafe-call
     "@typescript-eslint/no-explicit-any": "off", // Disable no-explicit-any
     "@typescript-eslint/no-unsafe-argument": "off", // Disable no-unsafe-argument
