@@ -14,7 +14,7 @@ export default function Footer() {
   const SignInLink = () => {
     return (
       <Link
-        href="#"
+        href="/admin"
         onClick={(e) => {
           e.preventDefault();
           handleSignInAndRedirect();
