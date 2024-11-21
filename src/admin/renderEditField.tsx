@@ -14,42 +14,12 @@ export function renderEditField(
   handleEdit: (path: string, value: any) => void,
   depth = 0,
 ) {
-  if (
-    Array.isArray(value) ||
-    (typeof value === "object" && isAccordion(path))
-  ) {
+  if (Array.isArray(value)) {
     return (
       <div className="mb-8 space-y-4">
         {value.map((item, index) => (
           <div key={index} className="relative rounded-lg bg-white p-4 shadow">
-            {Object.entries(item).map(([key, val]) => (
-              <div key={key} className="mb-4">
-                <label className="mb-2 block text-sm font-medium capitalize">
-                  {key.split(/(?=[A-Z])/).join(" ")}
-                </label>
-                {typeof val === "string" && isImageField(`${path}.${key}`) ? (
-                  <ImageUpload
-                    currentSrc={val}
-                    onUpload={(url) => {
-                      const newArray = [...value];
-                      newArray[index] = { ...item, [key]: url };
-                      handleEdit(path, newArray);
-                    }}
-                    path={`${path}.${key}`}
-                  />
-                ) : (
-                  <textarea
-                    value={val as string}
-                    onChange={(e) => {
-                      const newArray = [...value];
-                      newArray[index] = { ...item, [key]: e.target.value };
-                      handleEdit(path, newArray);
-                    }}
-                    className="focus:ring-blue-500 min-h-[100px] w-full rounded-lg border p-3 focus:ring-2"
-                  />
-                )}
-              </div>
-            ))}
+            {renderEditField(`${path}.${index}`, item, handleEdit, depth + 1)}
             <Button
               onClick={() => {
                 const newArray = value.filter((_, i) => i !== index);
@@ -80,55 +50,63 @@ export function renderEditField(
     );
   }
 
-  if (typeof value === "object") {
-    const isTopLevel = depth === 0;
-    const content = (
-      <div className="space-y-6">
-        {Object.entries(value).map(([key, val]) => (
-          <div key={key}>
-            {!isTopLevel && (
-              <h3 className="mb-4 text-lg font-medium capitalize">
-                {key.split(/(?=[A-Z])/).join(" ")}
-              </h3>
-            )}
-            {typeof val === "string" && isImageField(`${path}.${key}`) ? (
-              <ImageUpload
-                currentSrc={val}
-                onUpload={(url) => handleEdit(`${path}.${key}`, url)}
-                path={`${path}.${key}`}
-              />
-            ) : (
-              renderEditField(`${path}.${key}`, val, handleEdit, depth + 1)
-            )}
-          </div>
-        ))}
-      </div>
-    );
+  if (typeof value === "object" && value !== null && !Array.isArray(value)) {
+    return (
+      <Accordion type="single" collapsible className="w-full">
+        <AccordionItem value={path}>
+          <div className="flex">
+            <span className="hover:no-underline">
+              {Array(depth).fill("\u00A0\u00A0\u00A0").join("")}
+            </span>
+            <AccordionTrigger className="group text-lg font-medium">
+              <span className="capitalize">
+                {(() => {
+                  const pathParts = path.split(".");
+                  const currentPart = pathParts.pop() ?? "Object";
+                  // Check if current part is a number
+                  if (!isNaN(Number(currentPart))) {
+                    const parentPart = pathParts.pop();
+                    // If parent ends with 's', remove it and add the number
+                    if (parentPart?.endsWith("s")) {
+                      return `${parentPart.slice(0, -1)} ${Number(currentPart) + 1}`;
+                    } else {
+                      const formattedParentPart = parentPart!
+                        .replace(/([A-Z])/g, " $1")
+                        .trim();
 
-    if (isTopLevel) {
-      return Object.entries(value).map(([key, val]) => (
-        <Accordion type="single" collapsible key={key}>
-          <AccordionItem value={key}>
-            <AccordionTrigger className="text-lg font-medium capitalize">
-              {key.split(/(?=[A-Z])/).join(" ")}
+                      return `${formattedParentPart} item ${Number(currentPart) + 1}`;
+                    }
+                  }
+                  return currentPart.split(/(?=[A-Z])/).join(" ");
+                })()}
+              </span>
             </AccordionTrigger>
-            <AccordionContent>
-              {typeof val === "string" && isImageField(`${path}.${key}`) ? (
-                <ImageUpload
-                  currentSrc={val}
-                  onUpload={(url) => handleEdit(`${path}.${key}`, url)}
-                  path={`${path}.${key}`}
-                />
-              ) : (
-                renderEditField(`${path}.${key}`, val, handleEdit, depth + 1)
-              )}
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-      ));
-    }
-
-    return content;
+          </div>
+          <AccordionContent>
+            <div className="space-y-4">
+              {Object.entries(value).map(([key, val]) => (
+                <div key={key}>
+                  {typeof val === "string" && isImageField(`${path}.${key}`) ? (
+                    <ImageUpload
+                      currentSrc={val}
+                      onUpload={(url) => handleEdit(`${path}.${key}`, url)}
+                      path={`${path}.${key}`}
+                    />
+                  ) : (
+                    renderEditField(
+                      `${path}.${key}`,
+                      val,
+                      handleEdit,
+                      depth + 1,
+                    )
+                  )}
+                </div>
+              ))}
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    );
   }
 
   return (
@@ -146,7 +124,7 @@ export function renderEditField(
         <textarea
           value={value as string}
           onChange={(e) => handleEdit(path, e.target.value)}
-          className="focus:ring-blue-500 min-h-[100px] w-full rounded-lg border p-3 focus:ring-2"
+          className="min-h-[100px] w-full rounded-lg border p-3 focus:ring-2 focus:ring-blue-500"
         />
       )}
     </div>
@@ -166,11 +144,4 @@ function isImageField(fieldPath: string) {
   const pathParts = fieldPath.split(".");
   const lastPart = pathParts[pathParts.length - 1]!.toLowerCase();
   return lastPart === "src" || lastPart === "imagesrc";
-}
-
-function isAccordion(fieldPath: string) {
-  console.log("fieldPath", fieldPath);
-  const pathParts = fieldPath.split(".");
-  const lastPart = pathParts[pathParts.length - 1]!.toLowerCase();
-  return lastPart === "accordion" || lastPart === "accordionitems";
 }
