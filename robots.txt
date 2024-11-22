@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://dhsspeechdebate.com/sitemap.xml
+Sitemap: https://dhsspeechanddebate.netlify.app/sitemap.xml

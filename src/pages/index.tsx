@@ -12,6 +12,7 @@ export default function Home() {
         />
         <meta name="keywords" content="DHS, Dublin High School, Speech, Debate, Dublin CA, High School, Club" />
         <meta name="author" content="DHS Speech and Debate, Manning Wu" />
+        <meta name="google-site-verification" content="A6YrIHHiVDJIA8O5_fVIFMNVm8W7lxnVZd6TYIy5w4Q" />
       </Head>
       <LandingPage />
     </>
